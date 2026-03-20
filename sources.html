@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Source Vault — The Bleich Files</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Barlow+Condensed:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   THE BLEICH FILES — DESIGN TOKEN SHEET (Phase 4 · Approved)
+   ============================================================ */
+:root {
+  --ink:            #0A0A0A;
+  --newsprint:      #F2EDE3;
+  --white:          #FFFFFF;
+  --red:            #CC0000;
+  --red-dark:       #990000;
+  --red-stamp:      rgba(204,0,0,0.90);
+  --red-tint:       rgba(204,0,0,0.06);
+  --red-border:     rgba(204,0,0,0.30);
+  --gold:           #C9A84C;
+  --gold-dark:      #A07830;
+  --grey-900:       #1A1A1A;
+  --grey-800:       #2A2A2A;
+  --grey-700:       #3A3A3A;
+  --grey-500:       #6A6A6A;
+  --grey-400:       #888888;
+  --grey-200:       #C8BFA8;
+  --grey-100:       #E8E3D8;
+  --font-display:   'Playfair Display', Georgia, serif;
+  --font-mono:      'IBM Plex Mono', 'Courier New', monospace;
+  --font-label:     'Barlow Condensed', Arial Narrow, sans-serif;
+  --rule-masthead:  6px solid var(--red);
+  --shadow-masthead: 0 4px 20px rgba(0,0,0,0.4);
+  --shadow-card:    0 2px 8px rgba(0,0,0,0.08);
+  --shadow-card-hover: 0 8px 28px rgba(0,0,0,0.16);
+  --transition-fast: 0.15s ease;
+  --transition-mid:  0.25s ease;
+  --container:      1200px;
+  --container-pad:  24px;
+}
+
+/* ── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--newsprint);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* ── NEWSPRINT GRAIN ───────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ============================================================
+   MASTHEAD — shared with index.html
+   ============================================================ */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--ink);
+  border-bottom: var(--rule-masthead);
+  box-shadow: var(--shadow-masthead);
+}
+
+.masthead-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px;
+  min-height: 72px;
+}
+
+.pub-identity {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.pub-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(24px, 4vw, 46px);
+  letter-spacing: -1.5px;
+  line-height: 1;
+  color: var(--white);
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: 6px;
+  text-decoration: none;
+}
+
+.pub-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--red) 60%, transparent 100%);
+}
+
+.pub-title .accent { color: var(--red); }
+
+.pub-divider {
+  width: 2px; height: 28px;
+  background: var(--grey-700);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.pub-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pub-tagline {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey-400);
+}
+
+.pub-edition {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-700);
+  letter-spacing: 1px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.nav-link {
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--grey-400);
+  text-decoration: none;
+  padding: 8px 14px;
+  position: relative;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 14px; right: 14px;
+  height: 1px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover { color: var(--white); }
+.nav-link:hover::after { transform: scaleX(1); }
+
+.nav-link.active-page {
+  color: var(--gold);
+}
+.nav-link.active-page::after {
+  transform: scaleX(1);
+  background: var(--gold);
+}
+
+.nav-link.back-home {
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 6px 14px;
+  margin-left: 8px;
+  transition: all var(--transition-fast);
+}
+.nav-link.back-home:hover {
+  color: var(--white);
+  background: rgba(201,168,76,0.15);
+  border-color: var(--gold);
+}
+.nav-link.back-home::after { display: none; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--grey-400);
+  transition: all 0.25s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--white); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--white); }
+
+.nav-drawer {
+  display: none;
+  position: absolute;
+  top: 100%; left: 0; right: 0;
+  background: var(--grey-900);
+  border-top: 1px solid var(--grey-700);
+  border-bottom: 3px solid var(--red);
+  padding: 8px 0 12px;
+  z-index: 999;
+}
+.nav-drawer.open { display: block; }
+.nav-drawer .nav-link { display: block; padding: 12px 24px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.nav-drawer .nav-link::after { display: none; }
+
+/* ============================================================
+   VAULT HERO
+   ============================================================ */
+.vault-hero {
+  background: var(--ink);
+  border-bottom: 1px solid var(--grey-800);
+  padding: 56px var(--container-pad) 52px;
+}
+
+.vault-hero-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 48px;
+  align-items: start;
+}
+
+.vault-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.vault-label-line {
+  width: 32px; height: 2px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.vault-label-text {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.vault-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(36px, 5vw, 64px);
+  letter-spacing: -2px;
+  line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.vault-title span { color: var(--gold); }
+
+.vault-desc {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--grey-400);
+  max-width: 560px;
+}
+
+/* Methodology box */
+.vault-methodology {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--grey-700);
+  border-left: 3px solid var(--gold);
+  padding: 20px;
+  align-self: start;
+}
+
+.vault-meth-title {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.vault-meth-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vault-meth-list li {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--grey-400);
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+}
+
+.vault-meth-list li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  font-size: 6px;
+  color: var(--gold);
+  top: 4px;
+}
+
+/* Stats strip */
+.vault-stats-strip {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--grey-800);
+  margin-top: 40px;
+}
+
+.vault-stat {
+  padding: 16px 0;
+  border-right: 1px solid var(--grey-800);
+  text-align: center;
+}
+.vault-stat:last-child { border-right: none; }
+
+.vault-stat-val {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  color: var(--gold);
+  letter-spacing: -0.5px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.vault-stat-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-500);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   FILTER BAR
+   ============================================================ */
+.filter-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--grey-100);
+  position: sticky;
+  top: 78px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.filter-bar-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-bar-inner::-webkit-scrollbar { display: none; }
+
+.filter-label {
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey-400);
+  padding: 14px 16px 14px 0;
+  white-space: nowrap;
+  border-right: 1px solid var(--grey-100);
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.filter-btn {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--grey-500);
+  background: none;
+  border: none;
+  padding: 14px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.filter-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 16px; right: 16px;
+  height: 2px;
+  background: var(--red);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.filter-btn:hover { color: var(--ink); }
+.filter-btn:hover::after { transform: scaleX(1); }
+
+.filter-btn.active {
+  color: var(--red);
+  font-weight: 900;
+}
+.filter-btn.active::after { transform: scaleX(1); }
+
+.filter-count {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-400);
+  background: var(--grey-100);
+  padding: 1px 5px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.filter-btn.active .filter-count {
+  background: var(--red-tint);
+  color: var(--red);
+}
+
+/* ============================================================
+   SOURCE CARDS
+   ============================================================ */
+.sources-body {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 40px var(--container-pad) 60px;
+}
+
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+/* ── CARD ──────────────────────────────────────────────────── */
+.source-card {
+  background: var(--white);
+  border: 1px solid var(--grey-100);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--transition-mid), transform var(--transition-mid);
+  position: relative;
+  overflow: hidden;
+}
+
+.source-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+  z-index: 2;
+}
+
+/* Source number — large ghost behind content */
+.source-num-bg {
+  position: absolute;
+  bottom: -10px;
+  right: 8px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 96px;
+  color: rgba(0,0,0,0.03);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+/* Type colour strip on top */
+.source-card[data-type="regulatory"]   { border-top: 3px solid var(--red); }
+.source-card[data-type="court"]        { border-top: 3px solid #8B0000; }
+.source-card[data-type="corporate"]    { border-top: 3px solid var(--gold); }
+.source-card[data-type="press"]        { border-top: 3px solid var(--grey-400); }
+.source-card[data-type="financial"]    { border-top: 3px solid var(--ink); }
+
+.source-card-head {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--grey-100);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.source-num {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--red);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.source-card[data-type="corporate"] .source-num { color: var(--gold-dark); }
+.source-card[data-type="press"]     .source-num { color: var(--grey-500); }
+.source-card[data-type="financial"] .source-num { color: var(--ink); }
+
+.source-type-badge {
+  font-family: var(--font-label);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.badge-regulatory { background: var(--red);    color: var(--white); }
+.badge-court      { background: #8B0000;       color: var(--white); }
+.badge-corporate  { background: var(--gold);   color: var(--ink); }
+.badge-press      { background: var(--grey-400); color: var(--white); }
+.badge-financial  { background: var(--ink);    color: var(--white); }
+
+.source-card-body {
+  padding: 16px 18px;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.source-title {
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+  letter-spacing: 0.2px;
+  margin-bottom: 8px;
+}
+
+.source-desc {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--grey-500);
+  margin-bottom: 12px;
+}
+
+.source-ref {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-400);
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.source-ref strong {
+  color: var(--grey-700);
+  font-weight: 600;
+}
+
+.source-card-foot {
+  padding: 12px 18px;
+  border-top: 1px solid var(--grey-100);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.source-url {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-400);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.source-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  text-decoration: none;
+  border: 1px solid var(--red-border);
+  padding: 5px 12px;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.source-btn:hover {
+  background: var(--red);
+  color: var(--white);
+  border-color: var(--red);
+}
+
+.source-card[data-type="corporate"] .source-btn {
+  color: var(--gold-dark);
+  border-color: rgba(201,168,76,0.4);
+}
+.source-card[data-type="corporate"] .source-btn:hover {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
+}
+
+.source-card[data-type="press"] .source-btn,
+.source-card[data-type="financial"] .source-btn {
+  color: var(--grey-500);
+  border-color: var(--grey-200);
+}
+.source-card[data-type="press"] .source-btn:hover,
+.source-card[data-type="financial"] .source-btn:hover {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+}
+
+/* Hidden state for filter */
+.source-card.hidden {
+  display: none;
+}
+
+/* ============================================================
+   DISCLAIMER FOOTER
+   ============================================================ */
+.disclaimer {
+  background: var(--grey-100);
+  border-top: 1px solid var(--grey-200);
+  padding: 28px 0;
+}
+
+.disclaimer-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+
+.disclaimer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.disclaimer-pub {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.disclaimer-sep { color: var(--grey-200); }
+
+.disclaimer-tag {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey-400);
+}
+
+.disclaimer-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey-500);
+  line-height: 1.8;
+  max-width: 860px;
+}
+
+.disclaimer-link {
+  color: var(--red);
+  text-decoration: none;
+  border-bottom: 1px solid var(--red-border);
+}
+.disclaimer-link:hover { color: var(--red-dark); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1199px) {
+  :root { --container-pad: 20px; }
+  .sources-grid { grid-template-columns: repeat(2, 1fr); }
+  .vault-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .vault-methodology { max-width: 560px; }
+  .vault-stats-strip { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .nav { display: none; }
+  .hamburger { display: flex; }
+  .sources-grid { grid-template-columns: repeat(2, 1fr); }
+  .vault-stats-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  :root { --container-pad: 16px; }
+  .pub-divider, .pub-meta { display: none; }
+  .pub-title { font-size: clamp(22px, 7vw, 32px); }
+  .sources-grid { grid-template-columns: 1fr; }
+  .vault-stats-strip { grid-template-columns: repeat(2, 1fr); }
+  .vault-hero { padding: 36px var(--container-pad) 36px; }
+  .vault-title { font-size: clamp(32px, 8vw, 48px); }
+  .filter-bar-inner { gap: 0; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     MASTHEAD
+     ============================================================ -->
+<header class="masthead" id="masthead" role="banner">
+  <div class="masthead-inner">
+    <div class="pub-identity">
+      <a href="index.html" class="pub-title">The Bleich <span class="accent">Files</span></a>
+      <div class="pub-divider"></div>
+      <div class="pub-meta">
+        <span class="pub-tagline">An Investigative Record</span>
+        <span class="pub-edition">Public Interest Journalism &nbsp;·&nbsp; All Sources Verified</span>
+      </div>
+    </div>
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <a href="index.html#players"   class="nav-link">Subjects</a>
+      <a href="index.html#timeline"  class="nav-link">Timeline</a>
+      <a href="index.html#red-flags" class="nav-link">Red Flags</a>
+      <a href="index.html#money"     class="nav-link">Money Trail</a>
+      <a href="sources.html"         class="nav-link active-page">Sources ↗</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav-drawer" id="navDrawer" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html#players"   class="nav-link">Subjects</a>
+    <a href="index.html#timeline"  class="nav-link">Timeline</a>
+    <a href="index.html#red-flags" class="nav-link">Red Flags</a>
+    <a href="index.html#money"     class="nav-link">Money Trail</a>
+    <a href="sources.html"         class="nav-link active-page">Sources ↗</a>
+  </nav>
+</header>
+
+<!-- ============================================================
+     VAULT HERO
+     ============================================================ -->
+<div class="vault-hero">
+  <div class="vault-hero-inner">
+
+    <div>
+      <div class="vault-label">
+        <div class="vault-label-line"></div>
+        <span class="vault-label-text">Source Vault &nbsp;·&nbsp; The Bleich Files</span>
+      </div>
+      <h1 class="vault-title">Every Claim.<br><span>Every Source.</span></h1>
+      <p class="vault-desc">
+        Nothing on this site was invented, inferred, or assumed.
+        Every factual claim in the investigation is anchored to one of the primary sources catalogued below —
+        each independently verifiable through the referenced regulatory databases, court filing systems, or public records portals.
+        Allegations are stamped as such throughout. This is the foundation.
+      </p>
+    </div>
+
+    <div class="vault-methodology">
+      <div class="vault-meth-title">Methodology</div>
+      <ul class="vault-meth-list">
+        <li>All regulatory data sourced from FINRA BrokerCheck, SEC IAPD, and CBOE enforcement records</li>
+        <li>All financial data sourced from SEC Form ADV filings and EDGAR 13F reports</li>
+        <li>All court records sourced from NYSCEF and federal PACER databases</li>
+        <li>All attorney licensing data sourced from state bar and NJ Lawyers' Fund records</li>
+        <li>Single-source claims are flagged ⚠ Verify throughout the investigation</li>
+        <li>No claim is presented as established fact without a named primary source</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Stats strip -->
+  <div class="vault-stats-strip">
+    <div class="vault-stat">
+      <div class="vault-stat-val">11</div>
+      <div class="vault-stat-label">Primary Sources</div>
+    </div>
+    <div class="vault-stat">
+      <div class="vault-stat-val">5</div>
+      <div class="vault-stat-label">Regulatory Bodies</div>
+    </div>
+    <div class="vault-stat">
+      <div class="vault-stat-val">4</div>
+      <div class="vault-stat-label">Court Proceedings</div>
+    </div>
+    <div class="vault-stat">
+      <div class="vault-stat-val">0</div>
+      <div class="vault-stat-label">Unsourced Claims</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FILTER BAR
+     ============================================================ -->
+<div class="filter-bar" id="filterBar">
+  <div class="filter-bar-inner">
+    <span class="filter-label">Filter</span>
+    <button class="filter-btn active" data-filter="all">All <span class="filter-count">11</span></button>
+    <button class="filter-btn" data-filter="regulatory">Regulatory <span class="filter-count">4</span></button>
+    <button class="filter-btn" data-filter="court">Court <span class="filter-count">3</span></button>
+    <button class="filter-btn" data-filter="corporate">Corporate <span class="filter-count">2</span></button>
+    <button class="filter-btn" data-filter="financial">Financial <span class="filter-count">1</span></button>
+    <button class="filter-btn" data-filter="press">Press <span class="filter-count">1</span></button>
+  </div>
+</div>
+
+<!-- ============================================================
+     SOURCE CARDS
+     ============================================================ -->
+<main>
+<div class="sources-body">
+  <div class="sources-grid" id="sourcesGrid">
+
+    <!-- SOURCE 1 -->
+    <div class="source-card" data-type="corporate" data-num="1">
+      <div class="source-num-bg">1</div>
+      <div class="source-card-head">
+        <span class="source-num">01</span>
+        <span class="source-type-badge badge-corporate">Corporate</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">SEC IAPD — EntryPoint Capital, LLC</div>
+        <p class="source-desc">
+          SEC Investment Adviser Public Disclosure database entry for EntryPoint Capital LLC. Primary source for AUM figures, fund structure, executive profiles, and regulatory registration status.
+        </p>
+        <div class="source-ref"><strong>CRD#:</strong> 313946 &nbsp;·&nbsp; <strong>SEC#:</strong> 801-130798</div>
+        <div class="source-ref"><strong>Used for:</strong> E-01 through E-13, F-01, P-03, P-04, P-28, P-34</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">adviserinfo.sec.gov/firm/summary/313946</span>
+        <a href="https://adviserinfo.sec.gov/firm/summary/313946" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 2 -->
+    <div class="source-card" data-type="regulatory" data-num="2">
+      <div class="source-num-bg">2</div>
+      <div class="source-card-head">
+        <span class="source-num">02</span>
+        <span class="source-type-badge badge-regulatory">Regulatory</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">FINRA BrokerCheck — Scout Trading, LLC</div>
+        <p class="source-desc">
+          FINRA BrokerCheck record for Scout Trading LLC. Documents registration history, disciplinary events, and the $3,000,000 FINRA/NASDAQ censure and fine.
+        </p>
+        <div class="source-ref"><strong>CRD#:</strong> 151990</div>
+        <div class="source-ref"><strong>Used for:</strong> E-14 through E-24, S-05</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">brokercheck.finra.org/firm/summary/151990</span>
+        <a href="https://brokercheck.finra.org/firm/summary/151990" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 3 -->
+    <div class="source-card" data-type="regulatory" data-num="3">
+      <div class="source-num-bg">3</div>
+      <div class="source-card-head">
+        <span class="source-num">03</span>
+        <span class="source-type-badge badge-regulatory">Regulatory</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">NASDAQ Disciplinary Action: Scout Trading LLC</div>
+        <p class="source-desc">
+          Primary enforcement document for the April 7, 2015 FINRA/NASDAQ $3,000,000 censure and fine against Scout Trading LLC for systematic Regulation SHO violations. Source for all naked redemption order statistics, ETF threshold data, and compliance findings.
+        </p>
+        <div class="source-ref"><strong>Docket:</strong> 20100243860</div>
+        <div class="source-ref"><strong>Used for:</strong> S-05, E-18 through E-23, F-03, F-04</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">nasdaqtrader.com/…/SCOU_NQ_2015.pdf</span>
+        <a href="https://www.nasdaqtrader.com/content/marketregulation/NASDAQ/DisciplinaryActions/SCOU_NQ_2015.pdf" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 4 -->
+    <div class="source-card" data-type="regulatory" data-num="4">
+      <div class="source-num-bg">4</div>
+      <div class="source-card-head">
+        <span class="source-num">04</span>
+        <span class="source-type-badge badge-regulatory">Regulatory</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">FINRA/NASDAQ Press Release: Wedbush / Scout Trading Fines</div>
+        <p class="source-desc">
+          Official FINRA press release announcing the March 2016 enforcement actions against Wedbush Securities and Scout Trading LLC for Regulation SHO violations. Corroborates primary enforcement document.
+        </p>
+        <div class="source-ref"><strong>Date:</strong> March 2016</div>
+        <div class="source-ref"><strong>Used for:</strong> S-05 (corroboration), E-24</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">finra.org/media-center/news-releases/2016</span>
+        <a href="https://www.finra.org/media-center/news-releases/2016" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 5 -->
+    <div class="source-card" data-type="press" data-num="5">
+      <div class="source-num-bg">5</div>
+      <div class="source-card-head">
+        <span class="source-num">05</span>
+        <span class="source-type-badge badge-press">Press Release</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">SEC Press Release: Direct Edge / BATS $14M Penalty</div>
+        <p class="source-desc">
+          SEC press release announcing the January 2015 $14,000,000 penalty against BATS Global Markets and Direct Edge exchanges for failing to accurately describe order types and providing preferential information to HFT clients. Bleich not named — included for proximity context.
+        </p>
+        <div class="source-ref"><strong>Date:</strong> January 2015 &nbsp;·&nbsp; <strong>Note:</strong> Proximity context only — Bleich not personally named</div>
+        <div class="source-ref"><strong>Used for:</strong> S-06, E-30</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">sec.gov/newsroom/press-releases/2015-2</span>
+        <a href="https://www.sec.gov/newsroom/press-releases/2015-2" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 6 -->
+    <div class="source-card" data-type="financial" data-num="6">
+      <div class="source-num-bg">6</div>
+      <div class="source-card-head">
+        <span class="source-num">06</span>
+        <span class="source-type-badge badge-financial">Financial</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">EntryPoint Capital Form ADV — SEC Filing, March 2025</div>
+        <p class="source-desc">
+          Full SEC Form ADV filing for EntryPoint Capital LLC, March 2025. Primary source for all AUM figures, fund structure, Cayman Islands architecture, executive ownership percentages, and client account data.
+        </p>
+        <div class="source-ref"><strong>Filing date:</strong> March 2025 &nbsp;·&nbsp; <strong>CRD#:</strong> 313946</div>
+        <div class="source-ref"><strong>Used for:</strong> F-01, E-02 through E-13, P-28, P-34, P-35</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">reports.adviserinfo.sec.gov/…/313946.pdf</span>
+        <a href="https://reports.adviserinfo.sec.gov/reports/ADV/313946/PDF/313946.pdf" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 7 -->
+    <div class="source-card" data-type="court" data-num="7">
+      <div class="source-num-bg">7</div>
+      <div class="source-card-head">
+        <span class="source-num">07</span>
+        <span class="source-type-badge badge-court">Court Record</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">NY Supreme Court Proceedings 2024–2025 — Decision &amp; Order</div>
+        <p class="source-desc">
+          Justice Mary V. Rosado's January 17, 2025 Decision &amp; Order (Motion 001) in Index No. 155721/2024. Confirmed: rooftop HVAC lacked a permit; roof is exclusive Limited Common Element of Unit 2. Source for all judicial findings cited.
+        </p>
+        <div class="source-ref"><strong>Court:</strong> NY Supreme Court, NY County &nbsp;·&nbsp; <strong>Type:</strong> Decision &amp; Order</div>
+        <div class="source-ref"><strong>Used for:</strong> L-06, B-03, B-04</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">law.justia.com/…/2025-ny-slip-op-30182-u</span>
+        <a href="https://law.justia.com/cases/new-york/other-courts/2025/2025-ny-slip-op-30182-u.html" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 8 -->
+    <div class="source-card" data-type="court" data-num="8">
+      <div class="source-num-bg">8</div>
+      <div class="source-card-head">
+        <span class="source-num">08</span>
+        <span class="source-type-badge badge-court">Court Record</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">NY Supreme Court Proceedings — Appellate Division, 1st Dept., 2022</div>
+        <p class="source-desc">
+          First Department Appellate Division decision (May 24, 2022) in prior action Index 651188/2019. Critical holding: rejected the Bleichs' argument that DOB inaction conclusively established certificate of occupancy compliance. Giacovas listed as respondents' counsel.
+        </p>
+        <div class="source-ref"><strong>Court:</strong> First Department &nbsp;·&nbsp; <strong>Date:</strong> May 24, 2022</div>
+        <div class="source-ref"><strong>Used for:</strong> L-04, P-43</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">law.justia.com/cases/new-york/appellate…</span>
+        <a href="https://law.justia.com/cases/new-york/appellate-division-first-department/2022/" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 9 -->
+    <div class="source-card" data-type="court" data-num="9">
+      <div class="source-num-bg">9</div>
+      <div class="source-card-head">
+        <span class="source-num">09</span>
+        <span class="source-type-badge badge-court">Court Record</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">Medifast, Inc. v. Minkow et al. — S.D. Cal. Anti-SLAPP Ruling</div>
+        <p class="source-desc">
+          U.S. District Judge Janis Sammartino's March 29, 2011 ruling granting anti-SLAPP motions, dismissing all claims, and finding that Giacovas "paraphrased Defendants' statements seemingly for maximum shock value." Also source for $198,877.50 fee sanction (April 20, 2015).
+        </p>
+        <div class="source-ref"><strong>Court:</strong> U.S.D.C. S.D. Cal. &nbsp;·&nbsp; <strong>Docket:</strong> 3:10-cv-00382-JLS-BGS</div>
+        <div class="source-ref"><strong>Used for:</strong> P-42 through P-46, S-09, L-08 through L-10</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">PACER · S.D. Cal. 3:10-cv-00382-JLS-BGS</span>
+        <a href="https://www.pacer.gov" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 10 -->
+    <div class="source-card" data-type="corporate" data-num="10">
+      <div class="source-num-bg">10</div>
+      <div class="source-card-head">
+        <span class="source-num">10</span>
+        <span class="source-type-badge badge-corporate">Corporate</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">Forge Global Holdings — Leibowitz Board Appointment, March 2024</div>
+        <p class="source-desc">
+          Business Wire press release confirming Lawrence E. Leibowitz's board appointment at Forge Global Holdings (NYSE: FRGE) in March 2024. Source for current board positions and institutional affiliations.
+        </p>
+        <div class="source-ref"><strong>Date:</strong> March 2024 &nbsp;·&nbsp; <strong>Ticker:</strong> NYSE: FRGE</div>
+        <div class="source-ref"><strong>Used for:</strong> P-33</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">businesswire.com/…/20240314996430</span>
+        <a href="https://www.businesswire.com/news/home/20240314996430" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+    <!-- SOURCE 11 -->
+    <div class="source-card" data-type="regulatory" data-num="11">
+      <div class="source-num-bg">11</div>
+      <div class="source-card-head">
+        <span class="source-num">11</span>
+        <span class="source-type-badge badge-regulatory">Regulatory</span>
+      </div>
+      <div class="source-card-body">
+        <div class="source-title">NJ Lawyers' Fund for Client Protection — PHV Ineligible List</div>
+        <p class="source-desc">
+          New Jersey Lawyers' Fund for Client Protection PHV Ineligible List confirming Robert A. Giacovas (PHV012046) as formally INELIGIBLE to practice law pro hac vice in New Jersey for periods ending June 30, 2025 and February 23, 2026. Arises from failure to pay mandatory annual assessment.
+        </p>
+        <div class="source-ref"><strong>Subject:</strong> Robert A. Giacovas &nbsp;·&nbsp; <strong>NJ ID:</strong> PHV012046</div>
+        <div class="source-ref"><strong>Periods:</strong> Jun 30, 2025 and Feb 23, 2026 &nbsp;·&nbsp; <strong>Used for:</strong> P-41, S-08</div>
+      </div>
+      <div class="source-card-foot">
+        <span class="source-url">NJ Lawyers' Fund for Client Protection</span>
+        <a href="https://www.njlawfund.org" class="source-btn" target="_blank" rel="noopener">Open Source ↗</a>
+      </div>
+    </div>
+
+  </div><!-- /sources-grid -->
+</div>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="disclaimer" role="contentinfo">
+  <div class="disclaimer-inner">
+    <div class="disclaimer-left">
+      <span class="disclaimer-pub">The Bleich Files</span>
+      <span class="disclaimer-sep">·</span>
+      <span class="disclaimer-tag">Source Vault</span>
+    </div>
+    <p class="disclaimer-text">
+      All sources catalogued here are primary public records, regulatory enforcement documents, court filings, or SEC/FINRA database entries independently verifiable through the referenced portals.
+      Nothing in this investigation is based on anonymous sources, undocumented assertions, or inference.
+      Single-source claims are flagged throughout the main investigation.
+      Return to the full investigation at <a href="index.html" class="disclaimer-link">The Bleich Files →</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+
+  // ── HAMBURGER ────────────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const navDrawer = document.getElementById('navDrawer');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    navDrawer.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !navDrawer.contains(e.target)) {
+      hamburger.classList.remove('open');
+      navDrawer.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+
+  // ── SOURCE FILTER ────────────────────────────────────────────
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const sourceCards = document.querySelectorAll('.source-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+
+      // Update active button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      // Show/hide cards
+      sourceCards.forEach(card => {
+        if (filter === 'all' || card.dataset.type === filter) {
+          card.classList.remove('hidden');
+          // Animate in
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(8px)';
+          requestAnimationFrame(() => {
+            card.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          });
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+    });
+  });
+
+
+  // ── STAGGERED LOAD ANIMATION ─────────────────────────────────
+  window.addEventListener('load', () => {
+    sourceCards.forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(12px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 80 + (i * 40));
+    });
+  });
+
+</script>
+</body>
+</html>

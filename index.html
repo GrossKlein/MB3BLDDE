@@ -1,0 +1,2787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bleich Files — An Investigative Record</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Barlow+Condensed:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   THE BLEICH FILES — DESIGN TOKEN SHEET (Phase 4 · Approved)
+   ============================================================ */
+:root {
+  --ink:            #0A0A0A;
+  --newsprint:      #F2EDE3;
+  --white:          #FFFFFF;
+  --red:            #CC0000;
+  --red-dark:       #990000;
+  --red-stamp:      rgba(204,0,0,0.90);
+  --red-tint:       rgba(204,0,0,0.06);
+  --red-border:     rgba(204,0,0,0.30);
+  --gold:           #C9A84C;
+  --gold-dark:      #A07830;
+  --gold-stamp:     rgba(201,168,76,0.92);
+  --gold-tint:      rgba(201,168,76,0.06);
+  --grey-900:       #1A1A1A;
+  --grey-800:       #2A2A2A;
+  --grey-700:       #3A3A3A;
+  --grey-500:       #6A6A6A;
+  --grey-400:       #888888;
+  --grey-200:       #C8BFA8;
+  --grey-100:       #E8E3D8;
+  --font-display:   'Playfair Display', Georgia, serif;
+  --font-mono:      'IBM Plex Mono', 'Courier New', monospace;
+  --font-label:     'Barlow Condensed', Arial Narrow, sans-serif;
+  --rule-masthead:  6px solid var(--red);
+  --shadow-masthead: 0 4px 20px rgba(0,0,0,0.4);
+  --shadow-card:    0 2px 8px rgba(0,0,0,0.08);
+  --shadow-card-hover: 0 8px 28px rgba(0,0,0,0.16);
+  --shadow-stamp:   2px 3px 10px rgba(0,0,0,0.45);
+  --ticker-duration: 44s;
+  --transition-fast: 0.15s ease;
+  --transition-mid:  0.25s ease;
+  --container:      1200px;
+  --container-pad:  24px;
+  --section-gap:    80px;
+}
+
+/* ── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--newsprint);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* ── NEWSPRINT GRAIN ───────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ============================================================
+   MASTHEAD (Phase 5-A · Approved)
+   ============================================================ */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--ink);
+  border-bottom: var(--rule-masthead);
+  box-shadow: var(--shadow-masthead);
+}
+
+.masthead-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px;
+  min-height: 72px;
+}
+
+.pub-identity {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.pub-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(24px, 4vw, 46px);
+  letter-spacing: -1.5px;
+  line-height: 1;
+  color: var(--white);
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: 6px;
+  animation: titleReveal 0.6s ease forwards;
+}
+
+.pub-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--red) 60%, transparent 100%);
+}
+
+.pub-title .accent { color: var(--red); }
+
+.pub-divider {
+  width: 2px;
+  height: 28px;
+  background: var(--grey-700);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.pub-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pub-tagline {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey-400);
+  line-height: 1;
+}
+
+.pub-edition {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-700);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.nav-link {
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: none;
+  color: var(--grey-400);
+  text-decoration: none;
+  padding: 8px 14px;
+  position: relative;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 14px; right: 14px;
+  height: 1px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover { color: var(--white); }
+.nav-link:hover::after { transform: scaleX(1); }
+
+.nav-link.sources {
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 6px 14px;
+  margin-left: 8px;
+}
+.nav-link.sources:hover {
+  color: var(--white);
+  background: rgba(201,168,76,0.15);
+  border-color: var(--gold);
+}
+.nav-link.sources::after { display: none; }
+
+.nav-link.active { color: var(--gold); }
+.nav-link.active::after { transform: scaleX(1); background: var(--gold); }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--grey-400);
+  transition: all 0.25s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--white); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--white); }
+
+.nav-drawer {
+  display: none;
+  position: absolute;
+  top: 100%; left: 0; right: 0;
+  background: var(--grey-900);
+  border-top: 1px solid var(--grey-700);
+  border-bottom: 3px solid var(--red);
+  padding: 8px 0 12px;
+  z-index: 999;
+}
+.nav-drawer.open { display: block; }
+.nav-drawer .nav-link { display: block; padding: 12px 24px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.nav-drawer .nav-link::after { display: none; }
+.nav-drawer .nav-link.sources { margin: 8px 24px 0; display: inline-block; }
+
+.scroll-progress {
+  position: absolute;
+  bottom: -6px; left: 0;
+  height: 5px;
+  background: var(--gold);
+  width: 0%;
+  transition: width 0.1s linear;
+  z-index: 1001;
+  box-shadow: 0 0 8px rgba(201,168,76,0.6);
+}
+
+/* ============================================================
+   TICKER (Phase 5-A · Approved)
+   ============================================================ */
+.ticker-bar {
+  background: var(--red);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--red-dark);
+  animation: tickerLoad 0.4s ease 0.2s both;
+  position: relative;
+}
+.ticker-bar::before, .ticker-bar::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0;
+  width: 60px; z-index: 2; pointer-events: none;
+}
+.ticker-bar::before { left: 0; background: linear-gradient(to right, var(--red), transparent); }
+.ticker-bar::after  { right: 0; background: linear-gradient(to left, var(--red), transparent); }
+
+.ticker-label {
+  display: inline-block;
+  background: var(--white);
+  color: var(--red);
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  margin-right: 20px;
+  margin-left: 16px;
+  vertical-align: middle;
+  position: relative;
+  z-index: 3;
+}
+
+.ticker-track {
+  display: inline-block;
+  animation: ticker var(--ticker-duration) linear infinite;
+  vertical-align: middle;
+}
+.ticker-track:hover { animation-play-state: paused; }
+
+.ticker-item {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--white);
+  padding: 0 56px 0 0;
+}
+.ticker-item::before { content: '◆'; font-size: 8px; margin-right: 12px; opacity: 0.7; vertical-align: middle; }
+.ticker-item strong { color: var(--white); font-weight: 900; }
+.ticker-item .fine { color: #FFD0D0; font-weight: 900; }
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 48px var(--container-pad) 64px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 48px;
+  border-bottom: 3px double var(--grey-200);
+  position: relative;
+}
+
+/* ── HERO LABEL ────────────────────────────────────────────── */
+.hero-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease 0.2s forwards;
+}
+
+.hero-label-line {
+  width: 40px; height: 2px;
+  background: var(--red);
+  flex-shrink: 0;
+}
+
+.hero-label-text {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+/* ── HEADLINE ──────────────────────────────────────────────── */
+.hero-headline {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(32px, 4.8vw, 64px);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: var(--ink);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.3s forwards;
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: var(--red);
+}
+
+/* ── DECK ──────────────────────────────────────────────────── */
+.hero-deck {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.8vw, 19px);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--grey-500);
+  line-height: 1.5;
+  margin-bottom: 28px;
+  padding-left: 18px;
+  border-left: 4px solid var(--red);
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.4s forwards;
+}
+
+/* ── LEDE ──────────────────────────────────────────────────── */
+.hero-lede {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--ink);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.5s forwards;
+}
+
+.hero-lede p { margin-bottom: 12px; }
+.hero-lede p:last-child { margin-bottom: 0; }
+
+/* ── INLINE STAMPS ─────────────────────────────────────────── */
+.stamp {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  margin-left: 5px;
+  vertical-align: middle;
+  transform: rotate(-0.8deg);
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.stamp-reg {
+  background: var(--red);
+  color: var(--white);
+}
+
+.stamp-public {
+  background: transparent;
+  color: var(--grey-500);
+  border: 1px solid var(--grey-400);
+  transform: none;
+}
+
+.stamp-alleged {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* ── PULLQUOTE ─────────────────────────────────────────────── */
+.pullquote {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--ink);
+  border-left: 5px solid var(--red);
+  padding: 14px 20px;
+  margin: 32px 0 0;
+  background: var(--red-tint);
+  line-height: 1.45;
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.6s forwards;
+}
+
+.pullquote cite {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--grey-400);
+  margin-top: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── HERO SIDEBAR ──────────────────────────────────────────── */
+.hero-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 0.5s forwards;
+}
+
+/* ── PHOTO CARD ────────────────────────────────────────────── */
+.photo-card {
+  background: var(--grey-900);
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-area {
+  width: 100%;
+  height: 260px;
+  background: linear-gradient(160deg, #1c1c1c 0%, #111 50%, #0a0a0a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Texture lines — newsprint halftone feel */
+.photo-area::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255,255,255,0.015) 3px,
+    rgba(255,255,255,0.015) 4px
+  );
+}
+
+.photo-initials {
+  font-family: var(--font-display);
+  font-size: 88px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.06);
+  letter-spacing: -4px;
+  line-height: 1;
+  user-select: none;
+  position: relative;
+  z-index: 1;
+}
+
+.photo-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── DIAGONAL STAMPS ON PHOTO — DISTRESSED RUBBER STAMP ───── */
+
+/* SVG filter for rough/distressed ink effect — on stamps only */
+
+.stamp-overlay {
+  position: absolute;
+  font-family: var(--font-label);
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 8px 22px;
+  z-index: 10;
+  pointer-events: none;
+  /* No fill — rubber stamp style */
+  background: transparent;
+  color: var(--red);
+  /* Rough uneven border via box-shadow layering */
+  box-shadow:
+    0 0 0 2px var(--red),
+    1px 1px 0 2px var(--red),
+    -1px 0px 0 2px var(--red),
+    0 -1px 0 2px var(--red),
+    2px -1px 0 1px var(--red),
+    -2px 1px 0 1px var(--red);
+  /* Distressed ink — slight opacity variation */
+  opacity: 0.88;
+  /* Apply turbulence distress via filter */
+  filter: url(#rubber-stamp);
+  mix-blend-mode: multiply;
+}
+
+.stamp-overlay-severe {
+  font-size: 13px;
+  top: 28px;
+  right: -14px;
+  transform: rotate(12deg);
+  /* Slightly more worn */
+  opacity: 0.82;
+}
+
+.stamp-overlay-warn {
+  font-size: 11px;
+  top: 76px;
+  right: -8px;
+  transform: rotate(10deg);
+  opacity: 0.80;
+}
+
+/* ── PHOTO CAPTION ─────────────────────────────────────────── */
+.photo-caption {
+  padding: 10px 14px;
+  background: var(--grey-800);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey-400);
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  border-top: 1px solid var(--grey-700);
+}
+
+.photo-caption strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+/* ── STATS WIDGET ──────────────────────────────────────────── */
+.stats-widget {
+  background: var(--grey-900);
+}
+
+.stats-widget-head {
+  background: var(--ink);
+  padding: 8px 14px;
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey-400);
+  border-bottom: 1px solid var(--grey-700);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stats-widget-head::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s ease infinite;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 14px;
+  border-bottom: 1px dotted var(--grey-700);
+  gap: 12px;
+}
+
+.stat-row:last-child { border-bottom: none; }
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-500);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--red);
+  line-height: 1;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.stat-value.gold { color: var(--gold); }
+.stat-value.white { color: var(--white); font-size: 16px; }
+
+.stat-badge {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--grey-500);
+  margin-top: 2px;
+  text-align: right;
+}
+
+/* ── CONTEXT BAR ───────────────────────────────────────────── */
+.hero-context-bar {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--grey-200);
+  padding-top: 20px;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--grey-500);
+  line-height: 1.7;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  opacity: 0;
+  animation: fadeUp 0.5s ease 0.8s forwards;
+}
+
+.context-bar-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--grey-400);
+}
+
+/* ============================================================
+   RED FLAG CARDS SECTION
+   ============================================================ */
+.redflag-section {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-gap) var(--container-pad);
+}
+
+/* ── SECTION HEADER ────────────────────────────────────────── */
+.section-header { margin-bottom: 36px; }
+
+.section-header-inner {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.section-num {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--grey-400);
+  border: 1px solid var(--grey-200);
+  padding: 2px 10px;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: var(--font-label);
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  flex: 1;
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--red);
+  border: 1px solid var(--red-border);
+  padding: 2px 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.section-rule {
+  height: 3px;
+  background: var(--ink);
+}
+
+/* ── CARDS GRID ────────────────────────────────────────────── */
+.redflag-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--card-gap);
+  align-items: start;
+}
+
+/* ── CARD BASE ─────────────────────────────────────────────── */
+.rf-card {
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+  padding: var(--card-pad);
+  transition: transform var(--transition-mid), box-shadow var(--transition-mid);
+  cursor: default;
+}
+
+.rf-card:hover {
+  transform: var(--hover-lift);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Ghost number behind card content */
+.rf-num-bg {
+  position: absolute;
+  bottom: -20px;
+  right: -8px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 120px;
+  line-height: 1;
+  color: rgba(0,0,0,0.035);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Severity variants */
+.rf-severe {
+  border-top: 4px solid var(--red);
+  border-left: 1px solid var(--red-border);
+  border-right: 1px solid var(--grey-100);
+  border-bottom: 1px solid var(--grey-100);
+}
+
+.rf-warning {
+  border-top: 4px solid var(--gold);
+  border-left: 1px solid rgba(201,168,76,0.3);
+  border-right: 1px solid var(--grey-100);
+  border-bottom: 1px solid var(--grey-100);
+}
+
+/* ── CARD HEADER ───────────────────────────────────────────── */
+.rf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.rf-stamp {
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+}
+
+.rf-stamp-severe {
+  background: var(--red);
+  color: var(--white);
+}
+
+.rf-stamp-warn {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.rf-source {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--grey-400);
+  letter-spacing: 0.5px;
+}
+
+/* ── CARD TITLE ────────────────────────────────────────────── */
+.rf-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(17px, 1.8vw, 21px);
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.rf-divider {
+  width: 32px;
+  height: 2px;
+  background: var(--red);
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.rf-warning .rf-divider { background: var(--gold); }
+
+/* ── CARD BODY ─────────────────────────────────────────────── */
+.rf-body {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: var(--grey-500);
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.rf-body:last-of-type { margin-bottom: 0; }
+
+.rf-kicker {
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.rf-kicker strong { color: var(--red); }
+
+/* ── FINE AMOUNT ───────────────────────────────────────────── */
+.rf-fine {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: var(--red);
+  margin-top: 16px;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  font-size: 22px;
+}
+
+.rf-fine-dominant {
+  font-size: 38px;
+  letter-spacing: -1px;
+}
+
+.rf-fine-pct {
+  font-size: 56px;
+  letter-spacing: -2px;
+  color: var(--red);
+}
+
+.rf-fine-cascade {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 15px;
+  color: var(--gold-dark);
+}
+
+.rf-fine-plus {
+  color: var(--grey-400);
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   TIMELINE SECTION
+   ============================================================ */
+.timeline-section {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-gap) var(--container-pad);
+}
+
+/* ── COLUMN HEADERS ────────────────────────────────────────── */
+.tl-col-headers {
+  display: grid;
+  grid-template-columns: 140px 1fr 180px;
+  gap: 0;
+  padding: 8px 0;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 0;
+}
+
+.tl-col-headers > div {
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey-400);
+  padding: 0 16px 8px;
+}
+
+.tl-col-date  { padding-left: 0; }
+.tl-col-fine  { text-align: right; padding-right: 0; }
+
+/* ── TABLE ─────────────────────────────────────────────────── */
+.tl-table { border-bottom: 1px solid var(--grey-200); }
+
+/* ── ROW BASE ──────────────────────────────────────────────── */
+.tl-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 180px;
+  gap: 0;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--grey-100);
+  align-items: center;
+  position: relative;
+  transition: background var(--transition-fast);
+}
+
+.tl-row:hover { background: rgba(0,0,0,0.02); }
+
+/* Left accent bar by row type */
+.tl-row::before {
+  content: '';
+  position: absolute;
+  left: -var(--container-pad);
+  top: 0; bottom: 0;
+  width: 3px;
+}
+
+.tl-regulatory::before { background: var(--red); }
+.tl-financial::before  { background: var(--red); }
+.tl-corporate::before  { background: var(--gold); }
+.tl-career::before     { background: var(--grey-200); }
+
+/* Highlight rows get subtle background tint */
+.tl-highlight { background: rgba(204,0,0,0.025); }
+.tl-highlight:hover { background: rgba(204,0,0,0.04); }
+
+/* Dominant row — the $3M fine */
+.tl-dominant { background: rgba(204,0,0,0.05); }
+.tl-dominant:hover { background: rgba(204,0,0,0.08); }
+
+/* ── DATE CELL ─────────────────────────────────────────────── */
+.tl-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--grey-500);
+  letter-spacing: 0.5px;
+  padding-right: 16px;
+  line-height: 1.4;
+}
+
+.tl-dominant .tl-date { color: var(--red); font-weight: 600; }
+
+/* ── ROLE CELL ─────────────────────────────────────────────── */
+.tl-role { padding: 0 16px; }
+
+.tl-event {
+  font-family: var(--font-label);
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.tl-dominant .tl-event {
+  font-size: clamp(15px, 1.6vw, 17px);
+  color: var(--red);
+}
+
+.tl-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey-400);
+  letter-spacing: 0.3px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ── FINE CELL ─────────────────────────────────────────────── */
+.tl-fine {
+  text-align: right;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.tl-fine-none {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--grey-200);
+  justify-content: center;
+}
+
+.tl-fine-amt {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: var(--red);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.tl-fine-gold { color: var(--gold-dark); }
+
+.tl-fine-dominant-val {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 48px;
+  color: var(--red);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.tl-fine-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--grey-400);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── TOTAL ROW ─────────────────────────────────────────────── */
+.tl-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 20px 0;
+  border-top: 3px solid var(--ink);
+  margin-top: 0;
+}
+
+.tl-total-label {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey-500);
+}
+
+.tl-total-val {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--red);
+  letter-spacing: -1px;
+}
+
+/* ============================================================
+   KEY PLAYERS SECTION
+   ============================================================ */
+.players-section {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-gap) var(--container-pad);
+  background: var(--grey-900);
+  max-width: 100%;
+}
+
+.players-section .section-header { max-width: var(--container); margin: 0 auto 36px; }
+.players-section .section-title  { color: var(--newsprint); }
+.players-section .section-num    { color: var(--grey-500); border-color: var(--grey-700); }
+.players-section .section-tag    { color: var(--gold); border-color: rgba(201,168,76,0.4); }
+.players-section .section-rule   { background: var(--grey-700); }
+
+/* ── GRID: 3 + 2 ───────────────────────────────────────────── */
+.players-grid {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 2px;
+}
+
+/* 4th and 5th cards span to form a 2-col second row */
+.players-grid .player-card:nth-child(4) { grid-column: 1 / span 1; }
+.players-grid .player-card:nth-child(5) { grid-column: 2 / span 1; }
+
+/* ── CARD BASE ─────────────────────────────────────────────── */
+.player-card {
+  background: var(--grey-800);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-mid);
+  position: relative;
+  overflow: hidden;
+}
+
+.player-card:hover { transform: translateY(-2px); }
+
+/* Severity left border */
+.player-severe   { border-left: 3px solid var(--red); }
+.player-moderate { border-left: 3px solid var(--gold); }
+.player-unrated  { border-left: 3px solid var(--grey-700); }
+
+/* ── PHOTO AREA ────────────────────────────────────────────── */
+.player-photo {
+  height: 160px;
+  background: linear-gradient(160deg, #1c1c1c 0%, #111 60%, #0a0a0a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Subtle scanline texture */
+.player-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255,255,255,0.012) 3px,
+    rgba(255,255,255,0.012) 4px
+  );
+  pointer-events: none;
+}
+
+.player-initials {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 72px;
+  color: rgba(255,255,255,0.06);
+  letter-spacing: -3px;
+  line-height: 1;
+  user-select: none;
+  position: relative;
+  z-index: 1;
+}
+
+.player-photo-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.player-photo-tag-alert { color: var(--red) !important; font-weight: 600; }
+
+/* ── RISK BADGE ────────────────────────────────────────────── */
+.player-risk-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  z-index: 3;
+}
+
+.badge-severe   { background: var(--red);    color: var(--white); }
+.badge-moderate { background: var(--gold);   color: var(--ink); }
+.badge-unrated  { background: var(--grey-700); color: var(--grey-400); }
+
+/* ── CARD BODY ─────────────────────────────────────────────── */
+.player-body {
+  padding: 20px 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+.player-name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.player-role {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.player-moderate .player-role { color: var(--gold); }
+.player-unrated  .player-role { color: var(--grey-500); }
+
+.player-divider {
+  width: 28px;
+  height: 2px;
+  background: var(--red);
+  margin-bottom: 14px;
+}
+.player-divider-gold { background: var(--gold); }
+.player-divider-grey { background: var(--grey-700); }
+
+.player-bio {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.75;
+  color: var(--grey-400);
+  margin-bottom: 14px;
+}
+
+/* ── FLAG BOX ──────────────────────────────────────────────── */
+.player-flag {
+  background: rgba(204,0,0,0.08);
+  border-left: 3px solid var(--red);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.7;
+  color: var(--grey-300, #ccc);
+  flex: 1;
+}
+
+.player-flag strong { color: var(--white); }
+.player-flag em     { color: var(--newsprint); font-style: italic; }
+
+.player-flag-neutral {
+  background: rgba(255,255,255,0.03);
+  border-left-color: var(--grey-700);
+}
+
+.player-flag-label {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 6px;
+}
+
+.player-flag-neutral .player-flag-label { color: var(--grey-500); }
+
+/* ── CONNECTION LINE ───────────────────────────────────────── */
+.player-connection {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-700);
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+  border-top: 1px solid var(--grey-700);
+  padding-top: 10px;
+  margin-top: auto;
+}
+
+/* ============================================================
+   FOLLOW THE MONEY SECTION
+   ============================================================ */
+.money-section {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-gap) var(--container-pad);
+}
+
+.money-deck {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--grey-500);
+  line-height: 1.5;
+  padding-left: 18px;
+  border-left: 4px solid var(--red);
+  margin-bottom: 40px;
+  max-width: 760px;
+}
+
+/* ── 2×2 GRID ──────────────────────────────────────────────── */
+.money-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+
+/* ── PANEL BASE ────────────────────────────────────────────── */
+.money-panel {
+  background: var(--white);
+  padding: 28px 28px 32px;
+  border: 1px solid var(--grey-100);
+  transition: box-shadow var(--transition-mid);
+}
+
+.money-panel:hover { box-shadow: var(--shadow-card-hover); }
+
+.money-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+  flex-wrap: wrap;
+}
+
+.money-panel-title {
+  font-family: var(--font-label);
+  font-size: clamp(14px, 1.5vw, 17px);
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.money-panel-body {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--grey-500);
+  margin-bottom: 14px;
+}
+
+/* Risk panel — red tint */
+.panel-risk {
+  background: var(--red-tint);
+  border: 1px solid var(--red-border);
+  border-top: 4px solid var(--red);
+}
+
+/* ── STATS ROW ─────────────────────────────────────────────── */
+.money-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin: 20px 0;
+  background: var(--grey-100);
+}
+
+.money-stat {
+  background: var(--white);
+  padding: 14px 12px;
+  text-align: center;
+}
+
+.money-stat-val {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(20px, 2.2vw, 28px);
+  color: var(--red);
+  line-height: 1;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.money-stat-warn  { color: var(--gold-dark); }
+.money-stat-bench { color: var(--grey-400); }
+.money-stat-sm    { font-size: clamp(18px, 2vw, 24px); color: var(--ink); }
+
+.money-stat-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-400);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+/* ── RETURN COMPARISON BAR ─────────────────────────────────── */
+.return-compare { margin-top: 20px; }
+
+.return-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey-500);
+  margin-bottom: 5px;
+}
+
+.return-pct { font-weight: 600; }
+.return-pct.red  { color: var(--red); }
+.return-pct.grey { color: var(--grey-400); }
+
+.return-bar-track {
+  width: 100%;
+  height: 6px;
+  background: var(--grey-100);
+  overflow: hidden;
+}
+
+.return-bar-fill {
+  height: 100%;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.return-bar-fund { background: var(--red); }
+.return-bar-spy  { background: var(--grey-200); }
+
+.return-note {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-400);
+  margin-top: 12px;
+  letter-spacing: 0.3px;
+}
+
+/* ── CORPORATE STRUCTURE DIAGRAM ───────────────────────────── */
+.struct-diagram {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.struct-node {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--grey-200);
+  text-align: center;
+  position: relative;
+}
+
+.struct-person  { background: var(--grey-900); border-color: var(--red); }
+.struct-holding { background: var(--grey-800); border-color: var(--grey-700); }
+.struct-adviser { background: var(--grey-800); border-color: var(--grey-700); }
+.struct-master  { background: var(--grey-700); border-color: var(--grey-600, #555); }
+.struct-feeder  { background: var(--grey-800); border-color: var(--grey-700); flex: 1; }
+
+.struct-label {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+
+.struct-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-400);
+  letter-spacing: 0.3px;
+}
+
+.struct-arrow {
+  font-size: 16px;
+  color: var(--red);
+  line-height: 1.2;
+  text-align: center;
+  font-family: var(--font-mono);
+  padding: 2px 0;
+}
+
+.struct-split { width: 100%; }
+
+.struct-split-line {
+  width: 1px;
+  height: 16px;
+  background: var(--red);
+  margin: 0 auto;
+}
+
+.struct-split-children {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+/* ── LEIBOWITZ STRIP ───────────────────────────────────────── */
+.leibowitz-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--grey-100);
+  padding: 14px 16px;
+  margin-top: 20px;
+  border-left: 3px solid var(--gold);
+}
+
+.leibowitz-initial {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  color: rgba(0,0,0,0.12);
+  flex-shrink: 0;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.leibowitz-info { flex: 1; }
+
+.leibowitz-name {
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: 0.3px;
+  margin-bottom: 3px;
+}
+
+.leibowitz-roles {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-500);
+  letter-spacing: 0.3px;
+  line-height: 1.5;
+}
+
+.leibowitz-stake {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--gold-dark);
+  text-align: right;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.leibowitz-stake span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 400;
+  color: var(--grey-400);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* ── RISK BOXES ────────────────────────────────────────────── */
+.risk-boxes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin-top: 20px;
+}
+
+.risk-box {
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.risk-box-red   { background: rgba(204,0,0,0.08); border: 1px solid var(--red-border); }
+.risk-box-amber { background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.25); }
+
+.risk-box-val {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(20px, 2vw, 26px);
+  color: var(--red);
+  line-height: 1;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.risk-box-amber .risk-box-val { color: var(--gold-dark); }
+
+.risk-box-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-500);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+/* ============================================================
+   DISCLAIMER / FOOTER
+   ============================================================ */
+.disclaimer {
+  background: var(--grey-100);
+  border-top: 1px solid var(--grey-200);
+  padding: 28px 0;
+}
+
+.disclaimer-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+
+.disclaimer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.disclaimer-pub {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 14px;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+}
+
+.disclaimer-sep { color: var(--grey-200); }
+
+.disclaimer-tag {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--grey-400);
+}
+
+.disclaimer-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey-500);
+  line-height: 1.8;
+  max-width: 860px;
+}
+
+.disclaimer-link {
+  color: var(--red);
+  text-decoration: none;
+  border-bottom: 1px solid var(--red-border);
+  transition: color var(--transition-fast);
+}
+.disclaimer-link:hover { color: var(--red-dark); }
+
+
+/* ── REAL PHOTO STYLES ─────────────────────────────────────── */
+.photo-area-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.subject-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(25%) contrast(1.08);
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.photo-area-img:hover .subject-photo {
+  filter: grayscale(0%) contrast(1.05);
+}
+
+.player-photo-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.player-photo-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(40%) contrast(1.1);
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.player-photo-img:hover .player-photo-real {
+  filter: grayscale(10%) contrast(1.05);
+}
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes titleReveal {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes tickerLoad {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1199px) {
+  :root { --container-pad: 20px; }
+  .hero { grid-template-columns: 1fr 320px; gap: 36px; }
+  .nav-link { padding: 8px 10px; }
+  .redflag-grid { grid-template-columns: repeat(2, 1fr); }
+  .tl-col-headers { grid-template-columns: 120px 1fr 160px; }
+  .tl-row { grid-template-columns: 120px 1fr 160px; }
+  .tl-fine-dominant-val { font-size: 38px; }
+  .players-grid { grid-template-columns: repeat(3, 1fr); }
+  .money-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .nav { display: none; }
+  .hamburger { display: flex; }
+  .hero { grid-template-columns: 1fr; gap: 32px; padding: 36px var(--container-pad) 48px; }
+  .hero-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .photo-card { grid-column: 1 / -1; }
+  .redflag-grid { grid-template-columns: repeat(2, 1fr); }
+  .tl-col-headers { grid-template-columns: 100px 1fr 130px; }
+  .tl-row { grid-template-columns: 100px 1fr 130px; }
+  .tl-fine-dominant-val { font-size: 30px; }
+  .players-grid { grid-template-columns: repeat(2, 1fr); }
+  .players-grid .player-card:nth-child(4),
+  .players-grid .player-card:nth-child(5) { grid-column: auto; }
+  .money-grid { grid-template-columns: 1fr; }
+  .money-stats { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 600px) {
+  :root { --container-pad: 16px; }
+  .pub-divider, .pub-meta { display: none; }
+  .pub-title { font-size: clamp(22px, 7vw, 32px); }
+  .hero { padding: 28px var(--container-pad) 40px; }
+  .hero-sidebar { grid-template-columns: 1fr; }
+  .hero-context-bar { flex-direction: column; gap: 8px; }
+  .ticker-item { font-size: 11px; padding: 0 36px 0 0; }
+  .redflag-grid { grid-template-columns: 1fr; }
+  .rf-fine-pct { font-size: 42px; }
+  .rf-fine-dominant { font-size: 30px; }
+  .tl-col-headers { grid-template-columns: 90px 1fr; }
+  .tl-col-fine { display: none; }
+  .tl-row { grid-template-columns: 90px 1fr; }
+  .tl-fine { display: none; }
+  .tl-total-val { font-size: 24px; }
+  .players-grid { grid-template-columns: 1fr; }
+  .players-grid .player-card:nth-child(4),
+  .players-grid .player-card:nth-child(5) { grid-column: auto; }
+  .money-grid { grid-template-columns: 1fr; }
+  .money-stats { grid-template-columns: repeat(2, 1fr); }
+  .money-panel { padding: 20px 18px 24px; }
+  .risk-boxes { grid-template-columns: repeat(2, 1fr); }
+  .leibowitz-strip { flex-wrap: wrap; }
+  .struct-split-children { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- SVG Filter Definitions — rubber stamp distress effect -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden;" aria-hidden="true">
+  <defs>
+    <filter id="rubber-stamp" x="-20%" y="-20%" width="140%" height="140%"
+            color-interpolation-filters="sRGB">
+      <!-- Step 1: turbulence creates irregular ink edges -->
+      <feTurbulence type="turbulence"
+                    baseFrequency="0.055 0.075"
+                    numOctaves="3"
+                    seed="7"
+                    result="noise"/>
+      <!-- Step 2: displace the source graphic using the noise -->
+      <feDisplacementMap in="SourceGraphic"
+                         in2="noise"
+                         scale="2.8"
+                         xChannelSelector="R"
+                         yChannelSelector="G"
+                         result="displaced"/>
+      <!-- Step 3: erode slightly to thin ink and create worn patches -->
+      <feMorphology operator="erode"
+                    radius="0.4"
+                    in="displaced"
+                    result="eroded"/>
+      <!-- Step 4: composite back — worn ink with edge breakup -->
+      <feComposite in="eroded" in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ============================================================
+     MASTHEAD
+     ============================================================ -->
+<header class="masthead" id="masthead" role="banner">
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="masthead-inner">
+    <div class="pub-identity">
+      <h1 class="pub-title">The Bleich <span class="accent">Files</span></h1>
+      <div class="pub-divider"></div>
+      <div class="pub-meta">
+        <span class="pub-tagline">An Investigative Record</span>
+        <span class="pub-edition">Public Interest Journalism &nbsp;·&nbsp; All Sources Verified</span>
+      </div>
+    </div>
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <a href="#players"   class="nav-link" data-section="players">Subjects</a>
+      <a href="#timeline"  class="nav-link" data-section="timeline">Timeline</a>
+      <a href="#red-flags" class="nav-link" data-section="red-flags">Red Flags</a>
+      <a href="#money"     class="nav-link" data-section="money">Money Trail</a>
+      <a href="sources.html" class="nav-link sources">Sources ↗</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav-drawer" id="navDrawer" role="navigation" aria-label="Mobile navigation">
+    <a href="#players"   class="nav-link">Subjects</a>
+    <a href="#timeline"  class="nav-link">Timeline</a>
+    <a href="#red-flags" class="nav-link">Red Flags</a>
+    <a href="#money"     class="nav-link">Money Trail</a>
+    <a href="sources.html" class="nav-link sources">Sources ↗</a>
+  </nav>
+</header>
+
+<!-- ============================================================
+     TICKER
+     ============================================================ -->
+<div class="ticker-bar" role="marquee" aria-label="Investigation alerts">
+  <span class="ticker-label">⬥ Alert</span>
+  <div class="ticker-track" id="tickerTrack">
+    <span class="ticker-item">HE FAKED THE TRADE. FINRA CHARGED <span class="fine">$3,000,000.</span></span>
+    <span class="ticker-item"><strong>295 MILLION SHARES</strong> HE NEVER OWNED — SOLD ANYWAY</span>
+    <span class="ticker-item">SENT AN <strong>IMPOSTOR</strong> TO SIT HIS LICENCE EXAM</span>
+    <span class="ticker-item">ONE FIRM. <span class="fine">59%</span> OF AN ENTIRE MARKET'S FAILURES.</span>
+    <span class="ticker-item">HIS LAWYER IS <strong>SUSPENDED.</strong> SHE'S STILL FILING.</span>
+    <span class="ticker-item">LEAD COUNSEL <strong>BARRED FROM NJ COURTS.</strong> CASE CONTINUES.</span>
+    <span class="ticker-item"><span class="fine">$578 MILLION</span> MANAGED. <span class="fine">$3.3 MILLION</span> IN FINES ON RECORD.</span>
+    <span class="ticker-item">FIVE REGULATORS. <strong>FIVE SANCTIONS.</strong> ZERO COURSE CORRECTION.</span>
+    <span class="ticker-item"><strong>14 ETFs BROKEN.</strong> 250+ DAYS ON THE SEC WATCHLIST.</span>
+    <span class="ticker-item">JUDGE: HIS LAWYER FABRICATED QUOTES <strong>"FOR MAXIMUM SHOCK VALUE"</strong></span>
+    <!-- Duplicate for seamless loop -->
+    <span class="ticker-item">HE FAKED THE TRADE. FINRA CHARGED <span class="fine">$3,000,000.</span></span>
+    <span class="ticker-item"><strong>295 MILLION SHARES</strong> HE NEVER OWNED — SOLD ANYWAY</span>
+    <span class="ticker-item">SENT AN <strong>IMPOSTOR</strong> TO SIT HIS LICENCE EXAM</span>
+    <span class="ticker-item">ONE FIRM. <span class="fine">59%</span> OF AN ENTIRE MARKET'S FAILURES.</span>
+    <span class="ticker-item">HIS LAWYER IS <strong>SUSPENDED.</strong> SHE'S STILL FILING.</span>
+    <span class="ticker-item">LEAD COUNSEL <strong>BARRED FROM NJ COURTS.</strong> CASE CONTINUES.</span>
+    <span class="ticker-item"><span class="fine">$578 MILLION</span> MANAGED. <span class="fine">$3.3 MILLION</span> IN FINES ON RECORD.</span>
+    <span class="ticker-item">FIVE REGULATORS. <strong>FIVE SANCTIONS.</strong> ZERO COURSE CORRECTION.</span>
+    <span class="ticker-item"><strong>14 ETFs BROKEN.</strong> 250+ DAYS ON THE SEC WATCHLIST.</span>
+    <span class="ticker-item">JUDGE: HIS LAWYER FABRICATED QUOTES <strong>"FOR MAXIMUM SHOCK VALUE"</strong></span>
+  </div>
+</div>
+
+<!-- ============================================================
+     HERO SECTION
+     ============================================================ -->
+<main>
+<section id="hero" aria-label="Investigation overview">
+  <div class="hero">
+
+    <!-- LEFT: Editorial content -->
+    <div class="hero-main">
+
+      <!-- Label -->
+      <div class="hero-label">
+        <div class="hero-label-line"></div>
+        <span class="hero-label-text">Exclusive Investigation &nbsp;·&nbsp; Financial Markets &nbsp;·&nbsp; New York</span>
+      </div>
+
+      <!-- Headline -->
+      <h2 class="hero-headline">
+        The Man Who Shorted<br>
+        <em>$23 Million</em><br>
+        He Never Owned
+      </h2>
+
+      <!-- Deck -->
+      <p class="hero-deck">
+        He ran liquidity at Lehman Brothers when it took down the global economy. Then he built his own firm — and got fined $3 million for rigging the market.
+      </p>
+
+      <!-- Lede -->
+      <div class="hero-lede">
+        <p>
+          Michael Edward Bleich was Head of Liquidity Strategy at Lehman Brothers — the bank whose 2008 collapse triggered the worst financial crisis since the Great Depression.
+          <span class="stamp stamp-public">Public Record</span>
+        </p>
+        <p>
+          After Lehman fell, he founded Scout Trading LLC and ran a systematic naked short selling operation across 14 leveraged ETFs, submitting over 255 redemption orders for shares his firm did not own.
+          <span class="stamp stamp-reg">Regulatory Finding</span>
+        </p>
+        <p>
+          FINRA and NASDAQ fined him $3,000,000 and found his firm had operated with a near-total absence of compliance infrastructure.
+          <span class="stamp stamp-reg">Regulatory Finding</span>
+        </p>
+      </div>
+
+      <!-- Pullquote -->
+      <blockquote class="pullquote">
+        "A near-total absence of compliance infrastructure."
+        <cite>— FINRA / NASDAQ Disciplinary Finding &nbsp;·&nbsp; Docket 20100243860 &nbsp;·&nbsp; April 7, 2015</cite>
+      </blockquote>
+
+    </div>
+
+    <!-- RIGHT: Photo + Stats -->
+    <div class="hero-sidebar">
+
+      <!-- Photo Card -->
+      <div class="photo-card">
+        <div class="photo-area photo-area-img">
+          <!-- Diagonal stamps -->
+          <div class="stamp-overlay stamp-overlay-severe">FINRA: $3M Fine</div>
+          <div class="stamp-overlay stamp-overlay-warn">295M Shares</div>
+          <!-- Real photo -->
+          <img src="data:image/jpeg;base64,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" alt="Michael E. Bleich" class="subject-photo">
+        </div>
+        <div class="photo-caption">
+          <strong>Michael E. Bleich</strong> · CIO &amp; Indirect Owner, EntryPoint Capital LLC ·
+          CRD# 4262671 · <span style="color: var(--red);">FINRA Sanctions On Record</span>
+        </div>
+      </div>
+
+      <!-- Stats Widget -->
+      <div class="stats-widget">
+        <div class="stats-widget-head">Live Data · Public Filings</div>
+
+        <div class="stat-row">
+          <span class="stat-label">Assets Under<br>Management</span>
+          <div>
+            <div class="stat-value">$578M</div>
+            <span class="stat-badge">Form ADV · Mar 2025</span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <span class="stat-label">Total Documented<br>Penalties</span>
+          <div>
+            <div class="stat-value">$3,313,368</div>
+            <span class="stat-badge">Regulatory Finding</span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <span class="stat-label">Separate Regulatory<br>Actions</span>
+          <div>
+            <div class="stat-value white">5</div>
+            <span class="stat-badge">3 Exchanges · 2 Regulators</span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <span class="stat-label">Shares Naked<br>Shorted</span>
+          <div>
+            <div class="stat-value">295M+</div>
+            <span class="stat-badge">Regulatory Finding</span>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <span class="stat-label">3-Year Fund Return<br>vs S&amp;P 500 ~11%</span>
+          <div>
+            <div class="stat-value gold">4.73%</div>
+            <span class="stat-badge">13F · Public Filing</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Context Bar -->
+    <div class="hero-context-bar">
+      <span class="context-bar-icon">◎</span>
+      <span>
+        This is a record of public filings, court decisions, and regulatory enforcement actions.
+        Nothing published here is secret. All of it is verifiable.
+        None of it has ever been compiled in one place — until now.
+        All sources are independently documented in the <a href="sources.html" style="color: var(--red); text-decoration: none; border-bottom: 1px solid var(--red-border);">Source Vault →</a>
+      </span>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<!-- ============================================================
+     RED FLAG CARDS SECTION
+     ============================================================ -->
+<section id="red-flags" aria-label="Documented red flags">
+<div class="redflag-section">
+
+  <!-- Section Header -->
+  <div class="section-header">
+    <div class="section-header-inner">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Documented Red Flags</h2>
+      <span class="section-tag">Verified · Public Record</span>
+    </div>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="redflag-grid">
+
+    <!-- CARD 01 — SEVERE -->
+    <div class="rf-card rf-severe" data-num="01">
+      <div class="rf-num-bg">01</div>
+      <div class="rf-header">
+        <span class="rf-stamp rf-stamp-severe">⬛ Severe</span>
+        <span class="rf-source">[S-01 · FINRA #C3A990066]</span>
+      </div>
+      <h3 class="rf-title">Permanent Bar:<br>Exam Fraud</h3>
+      <div class="rf-divider"></div>
+      <p class="rf-body">
+        FINRA permanently barred an individual linked to Bleich's CRD record for using an imposter to sit the Series 7 qualifying examination — the foundational licensing gate for U.S. securities professionals.
+        <span class="stamp stamp-alleged">⚠ Verify — Single Source</span>
+      </p>
+      <p class="rf-body">
+        A Letter of Acceptance, Waiver and Consent was filed, consenting to findings and a $290,868 fine including $215,868 in disgorgement of ill-gotten earnings.
+        <span class="stamp stamp-reg">Regulatory Finding</span>
+      </p>
+      <div class="rf-fine">$290,868</div>
+    </div>
+
+    <!-- CARD 02 — SEVERE -->
+    <div class="rf-card rf-severe" data-num="02">
+      <div class="rf-num-bg">02</div>
+      <div class="rf-header">
+        <span class="rf-stamp rf-stamp-severe">⬛ Severe</span>
+        <span class="rf-source">[S-05 · NASDAQ #20100243860]</span>
+      </div>
+      <h3 class="rf-title">$3M Fine:<br>Naked Short Empire</h3>
+      <div class="rf-divider"></div>
+      <p class="rf-body">
+        On April 7, 2015, FINRA and NASDAQ censured Scout Trading LLC and imposed a $3,000,000 penalty for systematic violations of SEC Regulation SHO — the rule designed to prevent exactly this kind of phantom short selling.
+        <span class="stamp stamp-reg">Regulatory Finding</span>
+      </p>
+      <p class="rf-body">
+        Over 26 months, Scout submitted 255+ naked redemption orders totalling 295 million shares, exploiting a T+6 loophole to maintain short positions without ever owning the underlying stock.
+        <span class="stamp stamp-reg">Regulatory Finding</span>
+      </p>
+      <div class="rf-fine rf-fine-dominant">$3,000,000</div>
+    </div>
+
+    <!-- CARD 03 — SEVERE -->
+    <div class="rf-card rf-severe" data-num="03">
+      <div class="rf-num-bg">03</div>
+      <div class="rf-header">
+        <span class="rf-stamp rf-stamp-severe">⬛ Severe</span>
+        <span class="rf-source">[E-20, E-21 · FINRA/NASDAQ]</span>
+      </div>
+      <h3 class="rf-title">59%: One Firm<br>Broke a Market</h3>
+      <div class="rf-divider"></div>
+      <p class="rf-body">
+        At its peak, Scout Trading alone accounted for 59% of all market-wide failures to deliver in the Direxion Daily Financial Bear 3X ETF — ticker FAZ — across the entire United States.
+        <span class="stamp stamp-reg">Regulatory Finding</span>
+      </p>
+      <p class="rf-body">
+        The operation forced 14 ETFs onto the SEC Threshold Securities List for over 250 consecutive settlement days — a documented, sustained threat to U.S. market settlement integrity.
+        <span class="stamp stamp-reg">Regulatory Finding</span>
+      </p>
+      <div class="rf-fine rf-fine-pct">59%</div>
+    </div>
+
+    <!-- CARD 04 — WARNING -->
+    <div class="rf-card rf-warning" data-num="04">
+      <div class="rf-num-bg">04</div>
+      <div class="rf-header">
+        <span class="rf-stamp rf-stamp-warn">▲ Warning</span>
+        <span class="rf-source">[S-02, S-03, S-04 · CBOE]</span>
+      </div>
+      <h3 class="rf-title">Three Fines in<br>Eighteen Months</h3>
+      <div class="rf-divider"></div>
+      <p class="rf-body">
+        Before the catastrophic $3M FINRA penalty landed, Scout Trading had already been sanctioned three separate times by the Chicago Board Options Exchange: $10,000 in January 2013 for failing to maintain required market-maker quotes; $7,500 in June 2013 for operating without a CCO; and further sanctions in May 2014 for trade-through violations under Regulation NMS.
+        <span class="stamp stamp-reg">Regulatory Finding</span>
+      </p>
+      <p class="rf-body rf-kicker">
+        Three exchanges. Three regulators. Three sets of violations. <strong>Zero course correction.</strong>
+      </p>
+      <div class="rf-fine rf-fine-cascade">
+        <span>$10,000</span>
+        <span class="rf-fine-plus">+</span>
+        <span>$7,500</span>
+        <span class="rf-fine-plus">+</span>
+        <span>$5,000</span>
+      </div>
+    </div>
+
+  </div><!-- /redflag-grid -->
+</div>
+</section>
+
+<!-- ============================================================
+     TIMELINE SECTION
+     ============================================================ -->
+<section id="timeline" aria-label="Scandal timeline">
+<div class="timeline-section">
+
+  <!-- Section Header -->
+  <div class="section-header">
+    <div class="section-header-inner">
+      <span class="section-num">03</span>
+      <h2 class="section-title">The Record</h2>
+      <span class="section-tag">Chronological · Public Sources</span>
+    </div>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- Column Headers -->
+  <div class="tl-col-headers">
+    <div class="tl-col-date">Date</div>
+    <div class="tl-col-role">Michael E. Bleich's Role</div>
+    <div class="tl-col-fine">Fine / Penalty</div>
+  </div>
+
+  <!-- Timeline Rows -->
+  <div class="tl-table">
+
+    <div class="tl-row tl-regulatory">
+      <div class="tl-date">Undated</div>
+      <div class="tl-role">
+        <div class="tl-event">Busted Before He Started: FINRA Bars Him For Life</div>
+        <div class="tl-sub">Linked CRD #2372764 <span class="stamp stamp-alleged">⚠ Verify — Single Source</span></div>
+      </div>
+      <div class="tl-fine">
+        <span class="tl-fine-amt" style="font-size:20px">$290,868</span>
+        <span class="tl-fine-label">Disgorgement + Fine</span>
+      </div>
+    </div>
+
+    <div class="tl-row tl-career">
+      <div class="tl-date">2004 – 2008</div>
+      <div class="tl-role">
+        <div class="tl-event">Inside the Machine: Lehman's Liquidity Man</div>
+        <div class="tl-sub">Head of Liquidity Strategy, U.S. Equities</div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+    <div class="tl-row tl-corporate">
+      <div class="tl-date">2004 – 2008</div>
+      <div class="tl-role">
+        <div class="tl-event">Board Seat at BATS: The Insider Learns the Loopholes</div>
+        <div class="tl-sub">Board Director, BATS Holdings Inc. <span class="stamp stamp-public">Public Record</span></div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+    <div class="tl-row tl-financial tl-highlight">
+      <div class="tl-date">September 2008</div>
+      <div class="tl-role">
+        <div class="tl-event">Lehman Falls. He Walks.</div>
+        <div class="tl-sub">Head of Liquidity Strategy — present at collapse <span class="stamp stamp-public">Public Record</span></div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+    <div class="tl-row tl-corporate">
+      <div class="tl-date">January 2009</div>
+      <div class="tl-role">
+        <div class="tl-event">Phoenix From the Ashes: Scout Trading Born</div>
+        <div class="tl-sub">Founder &amp; CEO, Scout Trading LLC</div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+    <div class="tl-row tl-regulatory tl-highlight">
+      <div class="tl-date">Jan 2010 –<br>Mar 2012</div>
+      <div class="tl-role">
+        <div class="tl-event">295 Million Phantom Shares: The Naked Short Machine Runs</div>
+        <div class="tl-sub">Founder &amp; CEO, Scout Trading LLC <span class="stamp stamp-reg">Regulatory Finding</span></div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+    <div class="tl-row tl-corporate">
+      <div class="tl-date">2012 – 2017</div>
+      <div class="tl-role">
+        <div class="tl-event">Running Two Firms, Zero Compliance Officers</div>
+        <div class="tl-sub">CEO &amp; CCO, Ophir Partners LLC <span class="stamp stamp-public">Public Filing</span></div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+    <div class="tl-row tl-regulatory">
+      <div class="tl-date">January 2013</div>
+      <div class="tl-role">
+        <div class="tl-event">Strike One: CBOE Catches the Market-Maker Fraud</div>
+        <div class="tl-sub">CEO, Scout Trading LLC <span class="stamp stamp-reg">Regulatory Finding</span></div>
+      </div>
+      <div class="tl-fine">
+        <span class="tl-fine-amt" style="font-size:14px">$10,000</span>
+        <span class="tl-fine-label">CBOE · Docket 12-0059</span>
+      </div>
+    </div>
+
+    <div class="tl-row tl-regulatory">
+      <div class="tl-date">June 2013</div>
+      <div class="tl-role">
+        <div class="tl-event">Strike Two: No CCO. No Rules. No Problem — Until Now</div>
+        <div class="tl-sub">CEO, Scout Trading LLC <span class="stamp stamp-reg">Regulatory Finding</span></div>
+      </div>
+      <div class="tl-fine">
+        <span class="tl-fine-amt" style="font-size:14px">$7,500</span>
+        <span class="tl-fine-label">CBOE · Docket 12-0099</span>
+      </div>
+    </div>
+
+    <div class="tl-row tl-regulatory">
+      <div class="tl-date">May 2014</div>
+      <div class="tl-role">
+        <div class="tl-event">Strike Three: Breaking NASDAQ's Own Trading Rules</div>
+        <div class="tl-sub">CEO, Scout Trading LLC <span class="stamp stamp-reg">Regulatory Finding</span></div>
+      </div>
+      <div class="tl-fine">
+        <span class="tl-fine-amt" style="font-size:14px">$5,000</span>
+        <span class="tl-fine-label">CBOE · Docket 14-0018</span>
+      </div>
+    </div>
+
+    <div class="tl-row tl-corporate">
+      <div class="tl-date">January 2015</div>
+      <div class="tl-role">
+        <div class="tl-event">$14 Million: The Exchange He Championed Gets Crushed</div>
+        <div class="tl-sub">Former Board Director, BATS Holdings Inc. <span class="stamp stamp-public">Proximity Only</span></div>
+      </div>
+      <div class="tl-fine">
+        <span class="tl-fine-amt tl-fine-gold" style="font-size:24px">$14,000,000</span>
+        <span class="tl-fine-label">SEC vs BATS/Direct Edge</span>
+      </div>
+    </div>
+
+    <div class="tl-row tl-regulatory tl-highlight tl-dominant">
+      <div class="tl-date">April 2015</div>
+      <div class="tl-role">
+        <div class="tl-event">$3,000,000: Scout Trading Obliterated by FINRA</div>
+        <div class="tl-sub">Founder &amp; CEO, Scout Trading LLC <span class="stamp stamp-reg">Regulatory Finding</span></div>
+      </div>
+      <div class="tl-fine">
+        <span class="tl-fine-amt tl-fine-dominant-val">$3,000,000</span>
+        <span class="tl-fine-label">FINRA/NASDAQ · Docket 20100243860</span>
+      </div>
+    </div>
+
+    <div class="tl-row tl-corporate">
+      <div class="tl-date">2017</div>
+      <div class="tl-role">
+        <div class="tl-event">Ophir Collapses: Scout's Toxicity Spreads</div>
+        <div class="tl-sub">CEO &amp; CCO, Ophir Partners LLC <span class="stamp stamp-public">Public Record</span></div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+    <div class="tl-row tl-corporate">
+      <div class="tl-date">October 2020</div>
+      <div class="tl-role">
+        <div class="tl-event">New Shell, Same Control: EntryPoint Partners Born</div>
+        <div class="tl-sub">Indirect Owner, EntryPoint Partners LP <span class="stamp stamp-public">Public Filing</span></div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+    <div class="tl-row tl-corporate">
+      <div class="tl-date">July 2024</div>
+      <div class="tl-role">
+        <div class="tl-event">SEC Approves Him Again. $3M Fine and All.</div>
+        <div class="tl-sub">CIO &amp; Indirect Owner, EntryPoint Capital LLC <span class="stamp stamp-public">Public Filing</span></div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+    <div class="tl-row tl-financial tl-highlight">
+      <div class="tl-date">March 2025</div>
+      <div class="tl-role">
+        <div class="tl-event">$578M Fund. 4.73% Returns. The Market Doubled Him.</div>
+        <div class="tl-sub">CIO &amp; Indirect Owner, EntryPoint Capital LLC <span class="stamp stamp-public">Public Filing · Form ADV</span></div>
+      </div>
+      <div class="tl-fine tl-fine-none">—</div>
+    </div>
+
+  </div><!-- /tl-table -->
+
+  <!-- Total row -->
+  <div class="tl-total-row">
+    <div class="tl-total-label">Total Documented Penalties (Bleich entities)</div>
+    <div class="tl-total-val">$3,313,368</div>
+  </div>
+
+</div>
+</section>
+
+<!-- ============================================================
+     KEY PLAYERS SECTION
+     ============================================================ -->
+<section id="players" aria-label="Key subjects">
+<div class="players-section">
+
+  <!-- Section Header -->
+  <div class="section-header">
+    <div class="section-header-inner">
+      <span class="section-num">04</span>
+      <h2 class="section-title">The Subjects</h2>
+      <span class="section-tag">Background · Public Record</span>
+    </div>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- Cards Grid: 3 + 2 layout -->
+  <div class="players-grid">
+
+    <!-- CARD 1: Michael E. Bleich — SEVERE -->
+    <div class="player-card player-severe">
+      <div class="player-photo player-photo-img">
+        <img src="data:image/jpeg;base64,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" alt="Michael E. Bleich" class="player-photo-real">
+        <div class="player-photo-tag">CRD# 4262671</div>
+        <div class="player-risk-badge badge-severe">⬛ Severe</div>
+      </div>
+      <div class="player-body">
+        <div class="player-name">Michael E. Bleich</div>
+        <div class="player-role">CIO &amp; Indirect Owner — EntryPoint Capital LLC</div>
+        <div class="player-divider"></div>
+        <p class="player-bio">
+          Duke PhD quant who ran liquidity strategy at Lehman Brothers, founded and destroyed Scout Trading LLC with a $3 million FINRA penalty, and now controls $578 million through a Cayman Islands fund structure built behind a holding company shell.
+          <span class="stamp stamp-public">Public Filing</span>
+        </p>
+        <div class="player-flag">
+          <span class="player-flag-label">Key Flag</span>
+          His firm single-handedly accounted for 59% of all U.S. market-wide failures to deliver in the FAZ ETF — operating with, in FINRA's words, a near-total absence of compliance infrastructure.
+          <span class="stamp stamp-reg">Regulatory Finding · Docket 20100243860</span>
+        </div>
+        <div class="player-connection">
+          Controls EntryPoint Capital LLC via EntryPoint Partners LP (est. Oct 2020) · Former indirect owner of Scout Trading LLC and Ophir Partners LLC via Finch LLC / MEB NY Inc.
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2: Lawrence E. Leibowitz — MODERATE -->
+    <div class="player-card player-moderate">
+      <div class="player-photo">
+        <div class="player-initials">LEL</div>
+        <div class="player-photo-tag">CEO · EntryPoint Capital</div>
+        <div class="player-risk-badge badge-moderate">▲ Moderate</div>
+      </div>
+      <div class="player-body">
+        <div class="player-name">Lawrence E. Leibowitz</div>
+        <div class="player-role">Chief Executive Officer — EntryPoint Capital LLC</div>
+        <div class="player-divider player-divider-gold"></div>
+        <p class="player-bio">
+          Former Group EVP, COO &amp; Head of Global Equities at NYSE Euronext (2007–2013); previously Managing Director Americas Equities, UBS Investment Bank. Princeton alumnus.
+          <span class="stamp stamp-public">Public Record</span>
+        </p>
+        <div class="player-flag">
+          <span class="player-flag-label">Key Flag</span>
+          The forensic dossier characterises his appointment as a calculated reputational insulation strategy — his institutional credibility functioning as a buffer between Bleich and public scrutiny.
+          <span class="stamp stamp-alleged">Alleged Characterisation</span>
+        </div>
+        <div class="player-connection">
+          CEO, EntryPoint Capital LLC (&lt;5% ownership) · Boards: Forge Global Holdings (NYSE: FRGE), Enfusion (NYSE: ENFN), Xpansiv (Chair)
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3: Alexis K. Bleich — Unrated -->
+    <div class="player-card player-unrated">
+      <div class="player-photo">
+        <div class="player-initials">AKB</div>
+        <div class="player-photo-tag">Co-Plaintiff</div>
+        <div class="player-risk-badge badge-unrated">○ Unrated</div>
+      </div>
+      <div class="player-body">
+        <div class="player-name">Alexis K. Bleich</div>
+        <div class="player-role">Spouse of Michael E. Bleich · Psychotherapist</div>
+        <div class="player-divider player-divider-grey"></div>
+        <p class="player-bio">
+          Married Michael Edward Bleich at Brooklyn Botanical Garden on April 8, 2006. Practises as a psychotherapist in New York City.
+          <span class="stamp stamp-public">Public Record</span>
+        </p>
+        <div class="player-flag player-flag-neutral">
+          <span class="player-flag-label">Note</span>
+          No independent regulatory findings on public record. Included for completeness of subject profile.
+        </div>
+        <div class="player-connection">
+          Spouse of Michael E. Bleich · No independent regulatory or enforcement history documented in source files
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4: Robert A. Giacovas — SEVERE -->
+    <div class="player-card player-severe">
+      <div class="player-photo">
+        <div class="player-initials">RAG</div>
+        <div class="player-photo-tag">NJ PHV INELIGIBLE</div>
+        <div class="player-risk-badge badge-severe">⬛ Severe</div>
+      </div>
+      <div class="player-body">
+        <div class="player-name">Robert A. Giacovas</div>
+        <div class="player-role">Lead Counsel for Bleich · Founding Partner, Lazare Potter Giacovas &amp; Moyle LLP · Gen. Counsel, Squarepoint Capital</div>
+        <div class="player-divider"></div>
+        <p class="player-bio">
+          Fordham Law graduate who filed a $270 million defamation suit on behalf of Medifast Inc. against independent financial critics — ending in complete dismissal, a federal judge's rebuke, and a $198,877.50 fee sanction against his client.
+          <span class="stamp stamp-public">Court Record · S.D. Cal. 3:10-cv-00382</span>
+        </p>
+        <div class="player-flag">
+          <span class="player-flag-label">Key Flag</span>
+          U.S. District Judge Sammartino: Giacovas "paraphrased Defendants' statements seemingly for maximum shock value." Currently listed <strong>INELIGIBLE</strong> on the NJ Lawyers' Fund PHV list.
+          <span class="stamp stamp-reg">Court Record + Regulatory Finding · NJ PHV012046</span>
+        </div>
+        <div class="player-connection">
+          Lead counsel for Michael and Alexis Bleich · Sanctioned in Medifast v. Minkow (S.D. Cal.) · NJ PHV INELIGIBLE June 2025 &amp; February 2026
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Lynn Ellen Judell — SEVERE -->
+    <div class="player-card player-severe">
+      <div class="player-photo">
+        <div class="player-initials">LEJ</div>
+        <div class="player-photo-tag player-photo-tag-alert">CA BAR: SUSPENDED</div>
+        <div class="player-risk-badge badge-severe">⬛ Severe</div>
+      </div>
+      <div class="player-body">
+        <div class="player-name">Lynn Ellen Judell</div>
+        <div class="player-role">Co-Counsel for Bleich · Counsel, Rukab Brash PLLC</div>
+        <div class="player-divider"></div>
+        <p class="player-bio">
+          New York attorney and Chair of the Board of Directors of Access Justice Brooklyn — who appeared on active New York Supreme Court litigation filings while holding a suspended California Bar licence with an active Consumer Alert.
+          <span class="stamp stamp-reg">Regulatory Finding · CA Bar #114924</span>
+        </p>
+        <div class="player-flag">
+          <span class="player-flag-label">Key Flag</span>
+          The California State Bar Consumer Alert: <em>"This attorney is suspended from the practice of law."</em> Judell appeared on NYSCEF filings in June and September 2024 during an active suspension.
+          <span class="stamp stamp-reg">Regulatory Finding · CA Bar #114924</span>
+        </div>
+        <div class="player-connection">
+          Co-counsel alongside Giacovas for Bleich · NYSCEF Doc. 25 (Jun 21, 2024) and Doc. 101 (Sep 18, 2024) · CA Bar SUSPENDED — Consumer Alert active as of February 2026
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /players-grid -->
+</div>
+</section>
+
+<!-- ============================================================
+     FOLLOW THE MONEY SECTION
+     ============================================================ -->
+<section id="money" aria-label="Financial profile">
+<div class="money-section">
+
+  <!-- Section Header -->
+  <div class="section-header">
+    <div class="section-header-inner">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Follow The Money</h2>
+      <span class="section-tag">EntryPoint Capital LLC · Public Filings</span>
+    </div>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- Section Deck -->
+  <p class="money-deck">
+    Half a billion dollars. A Cayman Islands shell. A former NYSE chief as the public face. And the man who ran naked shorts on 295 million shares as the one calling every trade.
+  </p>
+
+  <!-- Four Panels Grid -->
+  <div class="money-grid">
+
+    <!-- PANEL A: The Numbers -->
+    <div class="money-panel panel-numbers">
+      <div class="money-panel-head">
+        <span class="money-panel-title">The Numbers</span>
+        <span class="stamp stamp-public">Public Filing · Form ADV / 13F</span>
+      </div>
+      <p class="money-panel-body">
+        EntryPoint Capital LLC reported $578,038,743 in regulatory assets under management in its most recent Form ADV filing dated March 2025 — managing capital for just 3 to 4 pooled investment vehicles.
+      </p>
+      <p class="money-panel-body">
+        Its 13F equity portfolio — 639 long positions valued at $256.36 million — generated a 3-year annualised return of 4.73% on its top 50 unweighted holdings, against an S&amp;P 500 that returned approximately 10–12% over the same period.
+      </p>
+
+      <!-- Big stats -->
+      <div class="money-stats">
+        <div class="money-stat">
+          <div class="money-stat-val">$578M</div>
+          <div class="money-stat-label">Regulatory AUM</div>
+        </div>
+        <div class="money-stat">
+          <div class="money-stat-val money-stat-warn">4.73%</div>
+          <div class="money-stat-label">3-Yr Return (top 50)</div>
+        </div>
+        <div class="money-stat">
+          <div class="money-stat-val money-stat-bench">~11%</div>
+          <div class="money-stat-label">S&amp;P 500 Same Period</div>
+        </div>
+        <div class="money-stat">
+          <div class="money-stat-val money-stat-sm">3–4</div>
+          <div class="money-stat-label">Total Client Accounts</div>
+        </div>
+      </div>
+
+      <!-- Return comparison bar -->
+      <div class="return-compare">
+        <div class="return-bar-label">
+          <span>EntryPoint 3-yr return</span>
+          <span class="return-pct red">4.73%</span>
+        </div>
+        <div class="return-bar-track">
+          <div class="return-bar-fill return-bar-fund" style="width:43%"></div>
+        </div>
+        <div class="return-bar-label" style="margin-top:8px">
+          <span>S&amp;P 500 same period</span>
+          <span class="return-pct grey">~11%</span>
+        </div>
+        <div class="return-bar-track">
+          <div class="return-bar-fill return-bar-spy" style="width:100%"></div>
+        </div>
+        <div class="return-note">Source: Executive Brief Feb 2026 · 13F Public Filing <span class="stamp stamp-public">Public Filing</span></div>
+      </div>
+    </div>
+
+    <!-- PANEL B: Corporate Structure -->
+    <div class="money-panel panel-structure">
+      <div class="money-panel-head">
+        <span class="money-panel-title">The Architecture of Distance</span>
+        <span class="stamp stamp-public">Public Filing · Form ADV</span>
+      </div>
+      <p class="money-panel-body">
+        EntryPoint Capital LLC is not owned directly by Michael Bleich — but indirectly, through a holding vehicle called EntryPoint Partners LP, established in October 2020.
+        <span class="stamp stamp-public">Public Filing</span>
+      </p>
+      <p class="money-panel-body">
+        The structure places at least two corporate layers between the beneficial owner and any direct regulatory or legal exposure at the operational level.
+        <span class="stamp stamp-alleged">Alleged Characterisation</span>
+      </p>
+
+      <!-- Structure Diagram -->
+      <div class="struct-diagram">
+        <div class="struct-node struct-person">
+          <div class="struct-label">Michael E. Bleich</div>
+          <div class="struct-sub">CIO · Indirect Owner · CRD# 4262671</div>
+        </div>
+        <div class="struct-arrow">↓</div>
+        <div class="struct-node struct-holding">
+          <div class="struct-label">EntryPoint Partners LP</div>
+          <div class="struct-sub">Holding Vehicle · Est. October 2020</div>
+        </div>
+        <div class="struct-arrow">↓</div>
+        <div class="struct-node struct-adviser">
+          <div class="struct-label">EntryPoint Capital LLC</div>
+          <div class="struct-sub">SEC-Registered Adviser · CRD# 313946</div>
+        </div>
+        <div class="struct-arrow">↓</div>
+        <div class="struct-node struct-master">
+          <div class="struct-label">EP Third Moment Master Fund LP</div>
+          <div class="struct-sub">Cayman Islands · Master Fund</div>
+        </div>
+        <div class="struct-split">
+          <div class="struct-split-line"></div>
+          <div class="struct-split-children">
+            <div class="struct-node struct-feeder">
+              <div class="struct-label">EP Third Moment International LP</div>
+              <div class="struct-sub">Cayman · Foreign / Tax-Exempt LPs</div>
+            </div>
+            <div class="struct-node struct-feeder">
+              <div class="struct-label">EP Third Moment Fund LLC</div>
+              <div class="struct-sub">Delaware · U.S. Taxable LPs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL C: The Leibowitz Shield -->
+    <div class="money-panel panel-leibowitz">
+      <div class="money-panel-head">
+        <span class="money-panel-title">The Man They Put In Front</span>
+        <span class="stamp stamp-alleged">Alleged Characterisation</span>
+      </div>
+      <p class="money-panel-body">
+        Lawrence Edward Leibowitz — former COO of NYSE Euronext, Princeton alumnus, and current board member of three publicly listed financial technology companies — serves as CEO of EntryPoint Capital with a less-than-5% ownership stake.
+        <span class="stamp stamp-public">Public Filing · Form ADV</span>
+      </p>
+      <p class="money-panel-body">
+        The forensic dossier characterises his appointment as a calculated reputational insulation strategy: Leibowitz's institutional credibility functions as a public-facing buffer, distancing the firm's marketed identity from the regulatory history of the CIO who controls all trading decisions.
+        <span class="stamp stamp-alleged">Alleged Characterisation · Forensic DD Report</span>
+      </p>
+      <p class="money-panel-body">
+        Bleich remains the central figure — the architect of every trading model, the indirect owner of the firm, and the single individual whose documented history remains the material fact that no amount of organisational structure can erase.
+        <span class="stamp stamp-alleged">Alleged Characterisation</span>
+      </p>
+
+      <!-- Leibowitz profile strip -->
+      <div class="leibowitz-strip">
+        <div class="leibowitz-initial">LEL</div>
+        <div class="leibowitz-info">
+          <div class="leibowitz-name">Lawrence E. Leibowitz</div>
+          <div class="leibowitz-roles">
+            Former COO NYSE Euronext &nbsp;·&nbsp; Princeton &nbsp;·&nbsp;
+            Forge Global (FRGE) &nbsp;·&nbsp; Enfusion (ENFN) &nbsp;·&nbsp; Xpansiv (Chair)
+          </div>
+        </div>
+        <div class="leibowitz-stake">&lt;5%<span>ownership</span></div>
+      </div>
+    </div>
+
+    <!-- PANEL D: LP Due Diligence Risk -->
+    <div class="money-panel panel-risk">
+      <div class="money-panel-head">
+        <span class="money-panel-title">What Your Fund Manager Didn't Tell You</span>
+        <span class="stamp stamp-reg">⬛ Severe — Risk Assessment</span>
+      </div>
+      <p class="money-panel-body">
+        EntryPoint Capital manages assets for only 3 to 4 pooled investment vehicles — a concentrated client base with acute vulnerability to single-source withdrawal pressure.
+        <span class="stamp stamp-public">Public Filing · Form ADV</span>
+      </p>
+      <p class="money-panel-body">
+        Any institutional limited partner conducting standard operational due diligence would find a CIO carrying $3,313,368 in documented regulatory penalties across five separate enforcement actions spanning three exchanges and two regulators.
+        <span class="stamp stamp-reg">Regulatory Finding · S-01 through S-05</span>
+      </p>
+      <p class="money-panel-body">
+        The firm's SEC registration was approved in July 2024 — nine years after the $3,000,000 FINRA penalty that effectively destroyed its predecessor enterprise, with all five sanctions still permanently on record.
+        <span class="stamp stamp-public">Public Filing</span>
+        <span class="stamp stamp-reg">Regulatory Finding</span>
+      </p>
+
+      <!-- Risk summary boxes -->
+      <div class="risk-boxes">
+        <div class="risk-box risk-box-red">
+          <div class="risk-box-val">$3,313,368</div>
+          <div class="risk-box-label">Total Documented Penalties</div>
+        </div>
+        <div class="risk-box risk-box-red">
+          <div class="risk-box-val">5</div>
+          <div class="risk-box-label">Separate Enforcement Actions</div>
+        </div>
+        <div class="risk-box risk-box-amber">
+          <div class="risk-box-val">3–4</div>
+          <div class="risk-box-label">Total Client Accounts</div>
+        </div>
+        <div class="risk-box risk-box-amber">
+          <div class="risk-box-val">9 yrs</div>
+          <div class="risk-box-label">From $3M Fine to SEC Approval</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /money-grid -->
+</div>
+</section>
+
+<!-- ============================================================
+     DISCLAIMER / FOOTER
+     ============================================================ -->
+<footer class="disclaimer" role="contentinfo">
+  <div class="disclaimer-inner">
+    <div class="disclaimer-left">
+      <span class="disclaimer-pub">The Bleich Files</span>
+      <span class="disclaimer-sep">·</span>
+      <span class="disclaimer-tag">An Investigative Record</span>
+    </div>
+    <p class="disclaimer-text">
+      All content on this site is derived exclusively from public records, court filings, regulatory enforcement documents, and SEC/FINRA filings independently verifiable through the referenced databases.
+      Nothing published herein constitutes a legal finding, investment advice, or a statement of established fact beyond what is explicitly attributed to a named source.
+      Allegations are stamped as such throughout. All sources are catalogued in the
+      <a href="sources.html" class="disclaimer-link">Source Vault →</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+
+  // ── SCROLL PROGRESS ──────────────────────────────────────────
+  const progressBar = document.getElementById('scrollProgress');
+  function updateProgress() {
+    const scrollTop  = window.scrollY;
+    const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+    const progress   = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = Math.min(progress, 100) + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  // ── ACTIVE NAV ───────────────────────────────────────────────
+  const sections = ['players', 'timeline', 'red-flags', 'money'];
+  const navLinks = document.querySelectorAll('.nav-link[data-section]');
+  function updateActiveNav() {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 120) current = id;
+    });
+    navLinks.forEach(link => link.classList.toggle('active', link.dataset.section === current));
+  }
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+  // ── SMOOTH SCROLL ────────────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        hamburger.classList.remove('open');
+        navDrawer.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // ── HAMBURGER ────────────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const navDrawer = document.getElementById('navDrawer');
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    navDrawer.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !navDrawer.contains(e.target)) {
+      hamburger.classList.remove('open');
+      navDrawer.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+</script>
+</body>
+</html>
