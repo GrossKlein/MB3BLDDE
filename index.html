@@ -1166,14 +1166,55 @@ body::before {
   max-width: var(--container);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto;
+  grid-template-columns: 1fr;
   gap: 2px;
 }
 
-/* 4th and 5th cards span to form a 2-col second row */
-.players-grid .player-card:nth-child(4) { grid-column: 1 / span 1; }
-.players-grid .player-card:nth-child(5) { grid-column: 2 / span 1; }
+/* First card (Bleich) spans full width as horizontal hero */
+.players-grid .player-card:first-child {
+  display: flex;
+  flex-direction: row;
+  min-height: 220px;
+}
+
+.players-grid .player-card:first-child .player-photo {
+  width: 220px;
+  min-width: 220px;
+  height: auto;
+}
+
+.players-grid .player-card:first-child .player-info {
+  flex: 1;
+}
+
+/* Cards 2–5 form a 2×2 grid below the hero */
+.players-grid .player-card:not(:first-child) {
+  /* reset from hero override — no extra needed */
+}
+
+/* Sub-grid wrapper for cards 2–5 */
+.players-grid::after {
+  display: none; /* placeholder — handled via nth-child grid placement */
+}
+
+.players-grid .player-card:nth-child(2),
+.players-grid .player-card:nth-child(3),
+.players-grid .player-card:nth-child(4),
+.players-grid .player-card:nth-child(5) {
+  /* nothing extra needed; CSS grid below handles the 2-col row */
+}
+
+/* Override: put cards 2–5 into a nested 2-col sub-grid */
+.players-grid {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+}
+
+.players-grid .player-card:first-child {
+  grid-column: 1 / -1; /* hero spans both columns */
+}
+
+
 
 /* ── CARD BASE ─────────────────────────────────────────────── */
 .player-card {
@@ -1351,7 +1392,7 @@ body::before {
 .player-connection {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: var(--grey-700);
+  color: var(--grey-400-inv);
   line-height: 1.6;
   letter-spacing: 0.3px;
   border-top: 1px solid var(--grey-700);
@@ -1845,6 +1886,8 @@ body::before {
 }
 
 .player-photo-real {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
