@@ -1902,10 +1902,38 @@ body::before {
   .redflag-grid { grid-template-columns: 1fr; }
   .rf-fine-pct { font-size: 42px; }
   .rf-fine-dominant { font-size: 30px; }
-  .tl-col-headers { grid-template-columns: 90px 1fr; }
-  .tl-col-fine { display: none; }
-  .tl-row { grid-template-columns: 90px 1fr; }
-  .tl-fine { display: none; }
+  .tl-col-headers { display: none; }
+  .tl-row {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 4px;
+    padding: 16px 0 16px 14px;
+    border-left: 3px solid var(--grey-100);
+    margin-left: 0;
+  }
+  .tl-row::before {
+    left: -3px;
+    width: 3px;
+  }
+  .tl-date {
+    font-size: 10px;
+    padding-right: 0;
+    order: -1;
+  }
+  .tl-role { padding: 0; }
+  .tl-fine {
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+    gap: 8px;
+    text-align: left;
+    padding-left: 0;
+    padding-top: 4px;
+  }
+  .tl-fine-none { font-size: 0; line-height: 0; height: 0; overflow: hidden; padding: 0; }
+  .tl-fine-dominant-val { font-size: 28px; }
+  .tl-fine-amt { font-size: 14px !important; }
+  .tl-fine-label { font-size: 8px; }
   .tl-total-val { font-size: 24px; }
   .players-grid { grid-template-columns: 1fr; }
   .players-grid .player-card:nth-child(4),
