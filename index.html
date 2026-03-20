@@ -1360,6 +1360,96 @@ body::before {
 }
 
 /* ============================================================
+   PENALTY CHART
+   ============================================================ */
+.penalty-chart-panel {
+  margin-top: 36px;
+  padding: 28px 24px 20px;
+  background: var(--white);
+  border: 1px solid var(--grey-100);
+}
+
+.penalty-chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.penalty-chart-title {
+  font-family: var(--font-label);
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: var(--ink);
+}
+
+.penalty-chart-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey-400);
+}
+
+.penalty-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey-500);
+}
+
+.penalty-chart-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.penalty-chart-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.penalty-chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 320px;
+}
+
+.penalty-chart-toggle {
+  display: flex;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.penalty-chart-btn {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  background: transparent;
+  color: var(--grey-500);
+  border: 1px solid var(--grey-200);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.penalty-chart-btn:hover { color: var(--ink); border-color: var(--grey-400); }
+.penalty-chart-btn.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.penalty-chart-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+@media (max-width: 600px) {
+  .penalty-chart-wrap { height: 260px; }
+  .penalty-chart-panel { padding: 20px 16px 16px; }
+}
+
+/* ============================================================
    FOLLOW THE MONEY SECTION
    ============================================================ */
 .money-section {
@@ -2482,6 +2572,26 @@ body::before {
     <div class="tl-total-val">$3,313,368</div>
   </div>
 
+  <!-- Penalty Chart -->
+  <div class="penalty-chart-panel" aria-label="Interactive penalty chart">
+    <div class="penalty-chart-head">
+      <span class="penalty-chart-title">Cumulative regulatory penalties</span>
+      <span class="penalty-chart-sub">2013 &ndash; 2015 &middot; Bleich-controlled entities</span>
+    </div>
+    <div class="penalty-chart-legend" id="chartLegend">
+      <span><span class="penalty-chart-swatch" style="background:#CC0000"></span>FINRA / NASDAQ &mdash; $3,290,868</span>
+      <span><span class="penalty-chart-swatch" style="background:#C9A84C"></span>CBOE &mdash; $22,500</span>
+      <span><span class="penalty-chart-swatch" style="background:#888"></span>SEC vs BATS (proximity) &mdash; $14,000,000</span>
+    </div>
+    <div class="penalty-chart-wrap">
+      <canvas id="penaltyChart"></canvas>
+    </div>
+    <div class="penalty-chart-toggle">
+      <button class="penalty-chart-btn active" data-view="direct" aria-pressed="true">Direct penalties only</button>
+      <button class="penalty-chart-btn" data-view="all" aria-pressed="false">Include BATS proximity</button>
+    </div>
+  </div>
+
 </div>
 </section>
 
@@ -2933,6 +3043,167 @@ body::before {
     });
   }
 
+</script>
+
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+(function() {
+  var canvas = document.getElementById('penaltyChart');
+  if (!canvas) return;
+
+  var events = [
+    { label: 'FINRA bar\n(undated)', date: 'Pre-2013', fine: 290868, cumul: 290868, type: 'finra', proximity: false },
+    { label: 'CBOE\nQuoting', date: 'Jan 2013', fine: 10000, cumul: 300868, type: 'cboe', proximity: false },
+    { label: 'CBOE\nNo CCO', date: 'Jun 2013', fine: 7500, cumul: 308368, type: 'cboe', proximity: false },
+    { label: 'CBOE\nReg NMS', date: 'May 2014', fine: 5000, cumul: 313368, type: 'cboe', proximity: false },
+    { label: 'SEC vs\nBATS', date: 'Jan 2015', fine: 14000000, cumul: 14313368, type: 'sec', proximity: true },
+    { label: 'FINRA\n$3M', date: 'Apr 2015', fine: 3000000, cumul: 3313368, type: 'finra', proximity: false }
+  ];
+
+  var directOnly = events.filter(function(e) { return !e.proximity; });
+  var allEvents = events;
+
+  var colors = { finra: '#CC0000', cboe: '#C9A84C', sec: '#888888' };
+
+  function barColors(data) {
+    return data.map(function(e) { return colors[e.type]; });
+  }
+
+  function cumulData(data) {
+    var sum = 0;
+    return data.map(function(e) {
+      if (!e.proximity) sum += e.fine;
+      else sum += e.fine;
+      return sum;
+    });
+  }
+
+  function buildChart(data) {
+    var labels = data.map(function(e) { return e.date; });
+    var fines = data.map(function(e) { return e.fine; });
+    var cumul = cumulData(data);
+    var maxVal = Math.max.apply(null, cumul) * 1.15;
+
+    return new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Penalty',
+            data: fines,
+            backgroundColor: barColors(data),
+            borderRadius: 3,
+            borderSkipped: false,
+            order: 2
+          },
+          {
+            label: 'Cumulative',
+            data: cumul,
+            type: 'line',
+            borderColor: '#CC0000',
+            borderWidth: 2,
+            pointBackgroundColor: '#CC0000',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            tension: 0.3,
+            fill: false,
+            order: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1A1A1A',
+            titleFont: { family: "'Barlow Condensed', sans-serif", size: 13, weight: '700' },
+            bodyFont: { family: "'IBM Plex Mono', monospace", size: 11 },
+            padding: 12,
+            cornerRadius: 2,
+            callbacks: {
+              title: function(ctx) {
+                return data[ctx[0].dataIndex].label.replace('\n', ' ');
+              },
+              label: function(ctx) {
+                if (ctx.datasetIndex === 0) {
+                  var e = data[ctx.dataIndex];
+                  var tag = e.proximity ? ' (proximity)' : '';
+                  return 'Penalty: $' + ctx.parsed.y.toLocaleString() + tag;
+                }
+                return 'Cumulative: $' + ctx.parsed.y.toLocaleString();
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: {
+              font: { family: "'IBM Plex Mono', monospace", size: 10 },
+              color: '#6A6A6A',
+              autoSkip: false,
+              maxRotation: 0
+            },
+            border: { color: '#0A0A0A' }
+          },
+          y: {
+            beginAtZero: true,
+            max: maxVal,
+            grid: { color: 'rgba(0,0,0,0.06)', drawTicks: false },
+            border: { display: false },
+            ticks: {
+              font: { family: "'IBM Plex Mono', monospace", size: 10 },
+              color: '#6A6A6A',
+              padding: 8,
+              callback: function(v) {
+                if (v >= 1000000) return '$' + (v / 1000000).toFixed(1) + 'M';
+                if (v >= 1000) return '$' + Math.round(v / 1000) + 'K';
+                return '$' + v;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  var chart = buildChart(directOnly);
+
+  var btns = document.querySelectorAll('.penalty-chart-btn');
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      btns.forEach(function(b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+
+      chart.destroy();
+      var view = btn.getAttribute('data-view');
+      chart = buildChart(view === 'all' ? allEvents : directOnly);
+
+      var legend = document.getElementById('chartLegend');
+      if (view === 'all') {
+        legend.innerHTML =
+          '<span><span class="penalty-chart-swatch" style="background:#CC0000"></span>FINRA / NASDAQ \u2014 $3,290,868</span>' +
+          '<span><span class="penalty-chart-swatch" style="background:#C9A84C"></span>CBOE \u2014 $22,500</span>' +
+          '<span><span class="penalty-chart-swatch" style="background:#888"></span>SEC vs BATS (proximity) \u2014 $14,000,000</span>' +
+          '<span style="font-style:italic;opacity:0.7">Line = cumulative total including proximity</span>';
+      } else {
+        legend.innerHTML =
+          '<span><span class="penalty-chart-swatch" style="background:#CC0000"></span>FINRA / NASDAQ \u2014 $3,290,868</span>' +
+          '<span><span class="penalty-chart-swatch" style="background:#C9A84C"></span>CBOE \u2014 $22,500</span>' +
+          '<span><span class="penalty-chart-swatch" style="background:#888"></span>SEC vs BATS (proximity) \u2014 $14,000,000</span>';
+      }
+    });
+  });
+})();
 </script>
 </body>
 </html>
