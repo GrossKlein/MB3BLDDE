@@ -1011,37 +1011,12 @@ body::before {
   max-width: var(--container);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2px;
-}/* First card (Bleich) spans full width as horizontal hero */
-.players-grid .player-card:first-child {
-  display: flex;
-  flex-direction: row;
-  min-height: 220px;
-}.players-grid .player-card:first-child .player-photo {
-  width: 220px;
-  min-width: 220px;
-  height: auto;
-}.players-grid .player-card:first-child .player-info {
-  flex: 1;
-}/* Cards 2–5 form a 2×2 grid below the hero */
-.players-grid .player-card:not(:first-child) {
-
-}/* Sub-grid wrapper for cards 2–5 */
-.players-grid::after {
-  display: none;
-}.players-grid .player-card:nth-child(2),
-.players-grid .player-card:nth-child(3),
-.players-grid .player-card:nth-child(4),
-.players-grid .player-card:nth-child(5) {
-
-}/* Override: put cards 2–5 into a nested 2-col sub-grid */
-.players-grid {
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto;
-}.players-grid .player-card:first-child {
+  gap: 2px;
+}/* Bleich (first card) spans full width */
+.players-grid .player-card:first-child {
   grid-column: 1 / -1;
-}/* ── CARD BASE ─────────────────────────────────────────────── */
+}
 .player-card {
   background: var(--grey-800);
   display: flex;
@@ -1060,7 +1035,6 @@ body::before {
   border-left: 3px solid var(--grey-700);
 }/* ── PHOTO AREA ────────────────────────────────────────────── */
 .player-photo {
-  height: 160px;
   background: linear-gradient(160deg, #1c1c1c 0%, #111 60%, #0a0a0a 100%);
   display: flex;
   align-items: center;
@@ -1068,7 +1042,12 @@ body::before {
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
-}/* Subtle scanline texture */
+  min-height: 160px;
+}/* Cards with real photo: height from image */
+.player-photo.player-photo-img {
+  display: block;
+  min-height: 0;
+}
 .player-photo::before {
   content: '';
   position: absolute;
@@ -1609,18 +1588,11 @@ body::before {
   transition: filter 0.3s ease;
 }.photo-area-img:hover .subject-photo {
   filter: grayscale(0%) contrast(1.05);
-}.player-photo-img {
-  position: relative;
-  overflow: hidden;
 }.player-photo-real {
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  filter: grayscale(40%) contrast(1.1);
+  height: auto;
   display: block;
+  filter: grayscale(40%) contrast(1.1);
   transition: filter 0.3s ease;
 }.player-photo-img:hover .player-photo-real {
   filter: grayscale(10%) contrast(1.05);
@@ -1751,7 +1723,7 @@ body::before {
 }.tl-fine-dominant-val {
   font-size: 38px;
 }.players-grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr;
 }.money-stats {
   grid-template-columns: repeat(2, 1fr);
 }
@@ -1778,10 +1750,7 @@ body::before {
 }.tl-fine-dominant-val {
   font-size: 30px;
 }.players-grid {
-  grid-template-columns: repeat(2, 1fr);
-}.players-grid .player-card:nth-child(4),
-  .players-grid .player-card:nth-child(5) {
-  grid-column: auto;
+  grid-template-columns: 1fr 1fr;
 }.money-grid {
   grid-template-columns: 1fr;
 }.money-stats {
