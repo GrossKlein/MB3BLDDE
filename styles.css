@@ -1722,8 +1722,6 @@ body::before {
   grid-template-columns: 120px 1fr 160px;
 }.tl-fine-dominant-val {
   font-size: 38px;
-}.players-grid {
-  grid-template-columns: 1fr 1fr;
 }.money-stats {
   grid-template-columns: repeat(2, 1fr);
 }
@@ -1749,8 +1747,6 @@ body::before {
   grid-template-columns: 100px 1fr 130px;
 }.tl-fine-dominant-val {
   font-size: 30px;
-}.players-grid {
-  grid-template-columns: 1fr 1fr;
 }.money-grid {
   grid-template-columns: 1fr;
 }.money-stats {
