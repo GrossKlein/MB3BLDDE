@@ -2328,3 +2328,21 @@ body::before {
   gap: 0;
 }
 }
+
+/* ── SECTION PHOTO BREAK ─────────────────────────────────── */
+.section-photo-break {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+  overflow: hidden;
+}
+.subject-break-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(25%) contrast(1.08);
+  transition: filter 0.3s ease;
+}
+.subject-break-img:hover {
+  filter: grayscale(0%) contrast(1.05);
+}

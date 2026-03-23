@@ -241,6 +241,14 @@
 </section>
 </main>
 
+<!-- Photo break: MBBS2 or MBBS3, random per load -->
+<div class="section-photo-break">
+  <img id="subject-break-photo"
+       src="MBBS2.webp"
+       alt="Michael E. Bleich"
+       class="subject-break-img">
+</div>
+
 <!-- ============================================================
      RED FLAG CARDS SECTION
      ============================================================ -->
@@ -955,5 +963,10 @@
 
   <script src="scripts.js"></script>
   <script src="scripts.js"></script>
+<!-- Random photo selector -->
+<script>
+  document.getElementById('subject-break-photo').src =
+    Math.random() < 0.5 ? 'MBBS2.webp' : 'MBBS3.webp';
+</script>
 </body>
 </html>
