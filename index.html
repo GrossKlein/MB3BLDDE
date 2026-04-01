@@ -175,7 +175,7 @@
         </div>
         <div class="photo-caption">
           <strong>Michael E. Bleich</strong> · CIO &amp; Indirect Owner, EntryPoint Capital LLC ·
-          CRD# 4262671 · <span style="color: var(--red);">FINRA Sanctions On Record</span>
+          CRD# 4262671 · <span class="text-red">FINRA Sanctions On Record</span>
         </div>
       </div>
 
@@ -233,13 +233,12 @@
         This is a record of public filings, court decisions, and regulatory enforcement actions.
         Nothing published here is secret. All of it is verifiable.
         None of it has ever been compiled in one place — until now.
-        All sources are independently documented in the <a href="sources.html" style="color: var(--red); text-decoration: none; border-bottom: 1px solid var(--red-border);">Source Vault →</a>
+        All sources are independently documented in the <a href="sources.html" class="context-link">Source Vault →</a>
       </span>
     </div>
 
   </div>
 </section>
-</main>
 
 <!-- Photo break: MBBS2 or MBBS3, random per load -->
 <div class="section-photo-break">
@@ -403,7 +402,7 @@
         <div class="tl-sub">Founder &amp; CEO, Scout Trading LLC <span class="stamp stamp-reg">Regulatory Finding</span></div>
       </div>
       <div class="tl-fine">
-        <span class="tl-fine-amt tl-fine-dominant-val" style="font-size:28px">$3,000,000</span>
+        <span class="tl-fine-amt tl-fine-dominant-val tl-fine-amt-lg">$3,000,000</span>
         <span class="tl-fine-label">FINRA/NASDAQ · Docket 20100243860</span>
       </div>
     </div>
@@ -414,7 +413,7 @@
         <div class="tl-sub">Linked CRD #2372764 <span class="stamp stamp-alleged">⚠ Verify — Single Source</span></div>
       </div>
       <div class="tl-fine">
-        <span class="tl-fine-amt" style="font-size:20px">$290,868</span>
+        <span class="tl-fine-amt tl-fine-amt-md">$290,868</span>
         <span class="tl-fine-label">Disgorgement + Fine</span>
       </div>
     </div>
@@ -426,7 +425,7 @@
         <div class="tl-sub">CEO, Scout Trading LLC <span class="stamp stamp-reg">Regulatory Finding</span></div>
       </div>
       <div class="tl-fine">
-        <span class="tl-fine-amt" style="font-size:14px">$10,000</span>
+        <span class="tl-fine-amt tl-fine-amt-sm">$10,000</span>
         <span class="tl-fine-label">CBOE · Docket 12-0059</span>
       </div>
     </div>
@@ -438,7 +437,7 @@
         <div class="tl-sub">CEO, Scout Trading LLC <span class="stamp stamp-reg">Regulatory Finding</span></div>
       </div>
       <div class="tl-fine">
-        <span class="tl-fine-amt" style="font-size:14px">$7,500</span>
+        <span class="tl-fine-amt tl-fine-amt-sm">$7,500</span>
         <span class="tl-fine-label">CBOE · Docket 12-0099</span>
       </div>
     </div>
@@ -450,7 +449,7 @@
         <div class="tl-sub">CEO, Scout Trading LLC <span class="stamp stamp-reg">Regulatory Finding</span></div>
       </div>
       <div class="tl-fine">
-        <span class="tl-fine-amt" style="font-size:14px">$5,000</span>
+        <span class="tl-fine-amt tl-fine-amt-sm">$5,000</span>
         <span class="tl-fine-label">CBOE · Docket 14-0018</span>
       </div>
     </div>
@@ -561,9 +560,9 @@
       <span class="penalty-chart-sub">2013 &ndash; 2015 &middot; Bleich-controlled entities</span>
     </div>
     <div class="penalty-chart-legend" id="chartLegend">
-      <span><span class="penalty-chart-swatch" style="background:#CC0000"></span>FINRA / NASDAQ &mdash; $3,290,868</span>
-      <span><span class="penalty-chart-swatch" style="background:#C9A84C"></span>CBOE &mdash; $22,500</span>
-      <span><span class="penalty-chart-swatch" style="background:#888"></span>SEC vs BATS (proximity) &mdash; $14,000,000</span>
+      <span><span class="penalty-chart-swatch swatch-finra"></span>FINRA / NASDAQ &mdash; $3,290,868</span>
+      <span><span class="penalty-chart-swatch swatch-cboe"></span>CBOE &mdash; $22,500</span>
+      <span><span class="penalty-chart-swatch swatch-sec"></span>SEC vs BATS (proximity) &mdash; $14,000,000</span>
     </div>
     <div class="penalty-chart-wrap">
       <canvas id="penaltyChart"></canvas>
@@ -793,14 +792,14 @@
           <span class="return-pct red">4.73%</span>
         </div>
         <div class="return-bar-track">
-          <div class="return-bar-fill return-bar-fund" style="width:43%"></div>
+          <div class="return-bar-fill return-bar-fund return-bar-w43"></div>
         </div>
-        <div class="return-bar-label" style="margin-top:8px">
+        <div class="return-bar-label return-bar-label-gap">
           <span>S&amp;P 500 same period</span>
           <span class="return-pct grey">~11%</span>
         </div>
         <div class="return-bar-track">
-          <div class="return-bar-fill return-bar-spy" style="width:100%"></div>
+          <div class="return-bar-fill return-bar-spy return-bar-w100"></div>
         </div>
         <div class="return-note">Source: Executive Brief Feb 2026 · 13F Public Filing <span class="stamp stamp-public">Public Filing</span></div>
       </div>
@@ -936,6 +935,8 @@
 </div>
 </section>
 
+</main>
+
 <!-- ============================================================
      DISCLAIMER / FOOTER
      ============================================================ -->
@@ -961,7 +962,6 @@
 
 <!-- Chart.js -->
 
-  <script src="scripts.js"></script>
   <script src="scripts.js"></script>
 <!-- Random photo selector -->
 <script>

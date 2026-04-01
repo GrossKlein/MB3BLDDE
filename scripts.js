@@ -55,14 +55,22 @@
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         const filter = btn.dataset.filter;
 
         sourceCards.forEach(card => {
           const show = filter === 'all' || card.dataset.type === filter;
           card.classList.toggle('hidden', !show);
-          if (show) {
+          card.setAttribute('aria-hidden', String(!show));
+          if (!show) {
+            card.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '-1'));
+          } else {
+            card.querySelectorAll('a, button').forEach(el => el.removeAttribute('tabindex'));
             card.style.opacity = '0';
             card.style.transform = 'translateY(8px)';
             requestAnimationFrame(() => {
