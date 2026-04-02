@@ -1,6 +1,7 @@
 (() => {
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const initHamburger = () => {
     const hamburger = $('#hamburger');
@@ -83,10 +84,7 @@
           const show = filter === 'all' || card.dataset.type === filter;
           card.classList.toggle('hidden', !show);
           card.setAttribute('aria-hidden', String(!show));
-          if (!show) {
-            card.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '-1'));
-          } else {
-            card.querySelectorAll('a, button').forEach(el => el.removeAttribute('tabindex'));
+          if (show && !prefersReducedMotion()) {
             card.style.opacity = '0';
             card.style.transform = 'translateY(8px)';
             requestAnimationFrame(() => {
@@ -115,15 +113,14 @@
     // Bar widths for "all" (relative to $14M SEC as 100%)
     const ALL_WIDTHS = { finra: '23.5%', cboe: '1%', sec: '100%' };
 
+    const finraFill = bars.querySelector('.bar-finra');
+    const cboeFill = bars.querySelector('.bar-cboe');
+
     const update = (view) => {
       const isDirect = view === 'direct';
       if (batsBar) batsBar.classList.toggle('hidden', isDirect);
-
-      const finraFill = bars.querySelector('.bar-finra');
-      const cboeFill = bars.querySelector('.bar-cboe');
       if (finraFill) finraFill.style.width = isDirect ? DIRECT_WIDTHS.finra : ALL_WIDTHS.finra;
       if (cboeFill) cboeFill.style.width = isDirect ? DIRECT_WIDTHS.cboe : ALL_WIDTHS.cboe;
-
       if (totalEl) totalEl.textContent = isDirect ? DIRECT_TOTAL : ALL_TOTAL;
     };
 
@@ -142,6 +139,7 @@
   };
 
   const initLoadAnimation = () => {
+    if (prefersReducedMotion()) return;
     const animatedCards = $$('.source-card');
     if (!animatedCards.length) return;
 

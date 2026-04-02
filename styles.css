@@ -119,14 +119,6 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
-}.pub-tagline {
-  font-family: var(--font-label);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--grey-400-inv);
-  line-height: 1;
 }.pub-edition {
   font-family: var(--font-mono);
   font-size: 9px;
@@ -595,8 +587,6 @@ a.stamp.stamp-public:hover {
     -2px 1px 0 1px var(--red);
   /* Distressed ink — slight opacity variation */
   opacity: 0.88;
-  /* Apply turbulence distress via filter */
-  /* filter: url(#rubber-stamp); — removed: crashes some renderers */
   mix-blend-mode: multiply;
 }.stamp-overlay-severe {
   font-size: 13px;
@@ -614,7 +604,7 @@ a.stamp.stamp-public:hover {
   opacity: 0.92;
   letter-spacing: 6px;
   padding: 6px 18px;
-  border-width: 3px;
+  box-shadow: 0 0 0 3px var(--red), 2px 2px 0 3px var(--red), -2px -1px 0 3px var(--red);
 }.stamp-overlay-naked {
   font-size: 13px;
   top: 42%;
@@ -643,30 +633,6 @@ a.stamp.stamp-public:hover {
 }.photo-caption strong {
   color: var(--white);
   font-weight: 600;
-}/* ── STATS WIDGET ──────────────────────────────────────────── */
-.stats-widget {
-  background: var(--grey-900);
-}.stats-widget-head {
-  background: var(--ink);
-  padding: 8px 14px;
-  font-family: var(--font-label);
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--grey-400-inv);
-  border-bottom: 1px solid var(--grey-700);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}.stats-widget-head::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: var(--red);
-  border-radius: 50%;
-  display: inline-block;
-  animation: pulse 2s ease infinite;
 }.stat-row {
   display: flex;
   justify-content: space-between;
@@ -1864,9 +1830,7 @@ a.stamp.stamp-public:hover {
    ============================================================ */
 
 /* grey-400 on ink (masthead) */
-.pub-tagline {
-  color: var(--grey-400-inv);
-}.pub-edition {
+.pub-edition {
   color: var(--grey-400-inv);
 }.nav-link {
   color: var(--grey-400-inv);
@@ -2090,13 +2054,6 @@ a.stamp.stamp-public:hover {
   position: relative;
   padding-bottom: 6px;
   text-decoration: none;
-}.pub-tagline {
-  font-family: var(--font-label);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--grey-400-inv);
 }.pub-edition {
   font-family: var(--font-mono);
   font-size: 9px;
@@ -2576,11 +2533,6 @@ a.stamp.stamp-public:hover {
   text-decoration: none;
   border-bottom: 1px solid var(--red-border);
 }
-
-/* Penalty chart legend swatches */
-.swatch-finra     { background: #CC0000; }
-.swatch-cboe      { background: #C9A84C; }
-.swatch-sec       { background: #888; }
 
 /* Agency logos — inline SVG */
 .agency-logo {
