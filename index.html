@@ -47,13 +47,12 @@
      MASTHEAD
      ============================================================ -->
 <header class="masthead" id="masthead" role="banner">
-  <div class="scroll-progress" id="scrollProgress"></div>
   <div class="masthead-inner">
     <div class="pub-identity">
       <h1 class="pub-title">The Bleich <span class="accent">Files</span></h1>
       <div class="pub-divider"></div>
       <div class="pub-meta">
-        <span class="pub-tagline">An Investigative Record</span>
+        <span class="masthead-badge">Exclusive Investigation</span>
         <span class="pub-edition">Public Interest Journalism &nbsp;·&nbsp; All Sources Verified</span>
       </div>
     </div>
@@ -85,27 +84,30 @@
   <span class="ticker-label">&#x2B25; Alert</span>
   <button class="ticker-pause" id="tickerPause" role="button" aria-label="Pause ticker" title="Pause / play ticker">&#10074;&#10074;</button>
   <div class="ticker-track" id="tickerTrack">
-    <span class="ticker-item">He faked the trade. FINRA charged <span class="fine">$3,000,000.</span></span>
-    <span class="ticker-item"><strong>295 million shares</strong> he never owned &mdash; sold anyway</span>
-    <span class="ticker-item">Sent an <strong>impostor</strong> to sit his licence exam</span>
-    <span class="ticker-item">One firm. <span class="fine">59%</span> of an entire market's failures.</span>
-    <span class="ticker-item">His lawyer is <strong>suspended.</strong> She's still filing.</span>
-    <span class="ticker-item">Lead counsel <strong>barred from NJ courts.</strong> Case continues.</span>
-    <span class="ticker-item"><span class="fine">$578 million</span> managed. <span class="fine">$17.3 million</span> in fines on record.</span>
-    <span class="ticker-item">Five regulators. <strong>Five sanctions.</strong> Zero course correction.</span>
-    <span class="ticker-item"><strong>14 ETFs broken.</strong> 250+ days on the SEC watchlist.</span>
-    <span class="ticker-item">Judge: his lawyer fabricated quotes <strong>&ldquo;for maximum shock value&rdquo;</strong></span>
-    <!-- Duplicate for seamless loop -->
-    <span class="ticker-item">He faked the trade. FINRA charged <span class="fine">$3,000,000.</span></span>
-    <span class="ticker-item"><strong>295 million shares</strong> he never owned &mdash; sold anyway</span>
-    <span class="ticker-item">Sent an <strong>impostor</strong> to sit his licence exam</span>
-    <span class="ticker-item">One firm. <span class="fine">59%</span> of an entire market's failures.</span>
-    <span class="ticker-item">His lawyer is <strong>suspended.</strong> She's still filing.</span>
-    <span class="ticker-item">Lead counsel <strong>barred from NJ courts.</strong> Case continues.</span>
-    <span class="ticker-item"><span class="fine">$578 million</span> managed. <span class="fine">$17.3 million</span> in fines on record.</span>
-    <span class="ticker-item">Five regulators. <strong>Five sanctions.</strong> Zero course correction.</span>
-    <span class="ticker-item"><strong>14 ETFs broken.</strong> 250+ days on the SEC watchlist.</span>
-    <span class="ticker-item">Judge: his lawyer fabricated quotes <strong>&ldquo;for maximum shock value&rdquo;</strong></span>
+    <!-- Tier 1: self-explanatory on arrival, shown immediately -->
+    <span class="ticker-item" data-tier="1">He faked the trade. FINRA charged <span class="fine">$3,000,000.</span></span>
+    <span class="ticker-item" data-tier="1"><strong>295 million shares</strong> he never owned &mdash; sold anyway</span>
+    <span class="ticker-item" data-tier="1">Sent an <strong>impostor</strong> to sit his licence exam</span>
+    <span class="ticker-item" data-tier="1">One firm. <span class="fine">59%</span> of an entire market's failures.</span>
+    <span class="ticker-item" data-tier="1"><span class="fine">$578 million</span> managed. <span class="fine">$17.3 million</span> in fines on record.</span>
+    <span class="ticker-item" data-tier="1">Five regulators. <strong>Five sanctions.</strong> Zero course correction.</span>
+    <!-- Tier 2: needs context from the article — revealed after hero scroll -->
+    <span class="ticker-item" data-tier="2">His lawyer is <strong>suspended.</strong> She's still filing.</span>
+    <span class="ticker-item" data-tier="2">Lead counsel <strong>barred from NJ courts.</strong> Case continues.</span>
+    <span class="ticker-item" data-tier="2"><strong>14 ETFs broken.</strong> 250+ days on the SEC watchlist.</span>
+    <span class="ticker-item" data-tier="2">Judge: his lawyer fabricated quotes <strong>&ldquo;for maximum shock value&rdquo;</strong></span>
+    <!-- Duplicate tier 1 for seamless loop -->
+    <span class="ticker-item" data-tier="1">He faked the trade. FINRA charged <span class="fine">$3,000,000.</span></span>
+    <span class="ticker-item" data-tier="1"><strong>295 million shares</strong> he never owned &mdash; sold anyway</span>
+    <span class="ticker-item" data-tier="1">Sent an <strong>impostor</strong> to sit his licence exam</span>
+    <span class="ticker-item" data-tier="1">One firm. <span class="fine">59%</span> of an entire market's failures.</span>
+    <span class="ticker-item" data-tier="1"><span class="fine">$578 million</span> managed. <span class="fine">$17.3 million</span> in fines on record.</span>
+    <span class="ticker-item" data-tier="1">Five regulators. <strong>Five sanctions.</strong> Zero course correction.</span>
+    <!-- Duplicate tier 2 for seamless loop — also revealed on scroll -->
+    <span class="ticker-item" data-tier="2">His lawyer is <strong>suspended.</strong> She's still filing.</span>
+    <span class="ticker-item" data-tier="2">Lead counsel <strong>barred from NJ courts.</strong> Case continues.</span>
+    <span class="ticker-item" data-tier="2"><strong>14 ETFs broken.</strong> 250+ days on the SEC watchlist.</span>
+    <span class="ticker-item" data-tier="2">Judge: his lawyer fabricated quotes <strong>&ldquo;for maximum shock value&rdquo;</strong></span>
   </div>
 </div>
 
@@ -161,14 +163,13 @@
 
     </div>
 
-    <!-- RIGHT: Photo + Stats -->
+    <!-- RIGHT: Photo only -->
     <div class="hero-sidebar">
 
       <!-- Photo Card -->
       <div class="photo-card">
         <div class="photo-area photo-area-img">
-          <!-- Diagonal stamps -->
-          <div class="stamp-overlay stamp-overlay-severe">FINRA: $3M Fine</div>
+          <!-- Diagonal stamps — keep 295M only, $3M removed (displayed in numbers bar) -->
           <div class="stamp-overlay stamp-overlay-warn">295M Shares</div>
           <!-- Real photo -->
           <img src="MBBS1.webp" alt="Michael E. Bleich" class="subject-photo">
@@ -179,51 +180,41 @@
         </div>
       </div>
 
-      <!-- Stats Widget -->
-      <div class="stats-widget">
-        <div class="stats-widget-head">Live Data · Public Filings</div>
+    </div>
 
-        <div class="stat-row">
-          <span class="stat-label">Assets Under<br>Management</span>
-          <div>
-            <div class="stat-value">$578M</div>
-            <span class="stat-badge">Form ADV · Mar 2025</span>
-          </div>
-        </div>
+    <!-- Numbers Bar — full width, spans both columns -->
+    <div class="hero-numbers-bar" aria-label="Key figures">
 
-        <div class="stat-row">
-          <span class="stat-label">Total Documented<br>Penalties</span>
-          <div>
-            <div class="stat-value">$17,313,368</div>
-            <span class="stat-badge">Regulatory Finding</span>
-          </div>
-        </div>
-
-        <div class="stat-row">
-          <span class="stat-label">Separate Regulatory<br>Actions</span>
-          <div>
-            <div class="stat-value white">5</div>
-            <span class="stat-badge">3 Exchanges · 2 Regulators</span>
-          </div>
-        </div>
-
-        <div class="stat-row">
-          <span class="stat-label">Shares Naked<br>Shorted</span>
-          <div>
-            <div class="stat-value">295M+</div>
-            <span class="stat-badge">Regulatory Finding</span>
-          </div>
-        </div>
-
-        <div class="stat-row">
-          <span class="stat-label">3-Year Fund Return<br>vs S&amp;P 500 ~11%</span>
-          <div>
-            <div class="stat-value gold">4.73%</div>
-            <span class="stat-badge">13F · Public Filing</span>
-          </div>
-        </div>
-
+      <div class="stat-row">
+        <span class="stat-label">Assets Under Management</span>
+        <div class="stat-value">$578M</div>
+        <span class="stat-badge">Form ADV · Mar 2025</span>
       </div>
+
+      <div class="stat-row">
+        <span class="stat-label">Total Documented Penalties</span>
+        <div class="stat-value">$17.3M</div>
+        <span class="stat-badge">Regulatory Finding</span>
+      </div>
+
+      <div class="stat-row">
+        <span class="stat-label">Separate Regulatory Actions</span>
+        <div class="stat-value white">5</div>
+        <span class="stat-badge">3 Exchanges · 2 Regulators</span>
+      </div>
+
+      <div class="stat-row">
+        <span class="stat-label">Shares Naked Shorted</span>
+        <div class="stat-value">295M+</div>
+        <span class="stat-badge">Regulatory Finding</span>
+      </div>
+
+      <div class="stat-row">
+        <span class="stat-label">3-Year Fund Return vs S&amp;P 500</span>
+        <div class="stat-value gold">4.73%</div>
+        <span class="stat-badge">13F · Public Filing</span>
+      </div>
+
     </div>
 
     <!-- Context Bar -->
@@ -262,6 +253,12 @@
       <span class="section-tag">Verified · Public Record</span>
     </div>
     <div class="section-rule"></div>
+  </div>
+
+  <!-- BILD-style giant numeral anchor — collapses the $3M repetition into one dominant visual -->
+  <div class="number-callout" aria-label="Key figure: $3,000,000 FINRA fine">
+    <div class="num">$3,000,000</div>
+    <div class="num-label">FINRA Fine &nbsp;·&nbsp; Scout Trading LLC &nbsp;·&nbsp; April 7, 2015</div>
   </div>
 
   <!-- Cards Grid -->
@@ -575,6 +572,22 @@
 
 </div>
 </section>
+
+<!-- ============================================================
+     INDUSTRY BASELINE CONTEXT PANEL
+     Emotional recovery beat — contrast before Players hits
+     ============================================================ -->
+<div class="context-break" role="note" aria-label="Industry context">
+  <div class="context-break-inner">
+    <span class="context-label">Industry Baseline</span>
+    <p class="context-stat">
+      The median FINRA-registered firm carries <strong>zero disciplinary actions.</strong>
+      Of 3,400+ registered broker-dealers, fewer than 4% have accumulated penalties
+      exceeding $500,000. Scout Trading accumulated <strong>$17.3M.</strong>
+    </p>
+    <p class="context-source">Source: FINRA Industry Snapshot &nbsp;·&nbsp; broker-dealer population data &nbsp;·&nbsp; public record</p>
+  </div>
+</div>
 
 <!-- ============================================================
      KEY PLAYERS SECTION

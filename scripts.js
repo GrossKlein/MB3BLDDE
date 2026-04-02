@@ -46,6 +46,22 @@
     });
 
     sync();
+
+    // Tier staging: hide context-dependent claims until reader passes the hero
+    const tier2Items = $$('[data-tier="2"]', tickerTrack);
+    tier2Items.forEach(el => { el.style.display = 'none'; });
+
+    const heroEl = document.getElementById('hero');
+    if (heroEl && tier2Items.length && 'IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) {
+          // Reader has scrolled past the hero — unlock tier 2 claims
+          tier2Items.forEach(el => { el.style.display = ''; });
+          revealObserver.disconnect();
+        }
+      }, { threshold: 0 });
+      revealObserver.observe(heroEl);
+    }
   };
 
   const initSourceFilter = () => {
