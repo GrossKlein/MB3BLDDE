@@ -100,6 +100,47 @@
     });
   };
 
+  const initPenaltyChart = () => {
+    const btns = $$('.penalty-chart-btn');
+    const batsBar = $('#batsBar');
+    const totalEl = $('#penaltyTotal');
+    const bars = $('#penaltyBars');
+    if (!btns.length || !bars) return;
+
+    const DIRECT_TOTAL = '$3,313,368';
+    const ALL_TOTAL = '$17,313,368';
+
+    // Bar widths for "direct only" (relative to FINRA as 100%)
+    const DIRECT_WIDTHS = { finra: '100%', cboe: '0.7%' };
+    // Bar widths for "all" (relative to $14M SEC as 100%)
+    const ALL_WIDTHS = { finra: '23.5%', cboe: '1%', sec: '100%' };
+
+    const update = (view) => {
+      const isDirect = view === 'direct';
+      if (batsBar) batsBar.classList.toggle('hidden', isDirect);
+
+      const finraFill = bars.querySelector('.bar-finra');
+      const cboeFill = bars.querySelector('.bar-cboe');
+      if (finraFill) finraFill.style.width = isDirect ? DIRECT_WIDTHS.finra : ALL_WIDTHS.finra;
+      if (cboeFill) cboeFill.style.width = isDirect ? DIRECT_WIDTHS.cboe : ALL_WIDTHS.cboe;
+
+      if (totalEl) totalEl.textContent = isDirect ? DIRECT_TOTAL : ALL_TOTAL;
+    };
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+        update(btn.dataset.view);
+      });
+    });
+
+    // Initialize to the active button's view
+    const activeBtn = btns.find(b => b.classList.contains('active'));
+    if (activeBtn) update(activeBtn.dataset.view);
+  };
+
   const initLoadAnimation = () => {
     const animatedCards = $$('.source-card');
     if (!animatedCards.length) return;
@@ -121,6 +162,7 @@
     initHamburger();
     initTicker();
     initSourceFilter();
+    initPenaltyChart();
     initLoadAnimation();
   });
 })();

@@ -486,7 +486,27 @@
 }.stamp-alleged {
   background: var(--gold);
   color: var(--ink);
-}/* ── PULLQUOTE ─────────────────────────────────────────────── */
+}
+
+/* Linked stamps — hover/focus states */
+a.stamp {
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 0.15s ease, box-shadow 0.15s ease;
+}
+a.stamp:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+a.stamp:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+a.stamp.stamp-public:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+/* ── PULLQUOTE ─────────────────────────────────────────────── */
 .pullquote {
   font-family: var(--font-tabloid);
   font-size: clamp(17px, 1.9vw, 22px);
@@ -1341,7 +1361,96 @@
 }.penalty-chart-wrap {
   position: relative;
   width: 100%;
-  height: 320px;
+  min-height: 200px;
+}
+
+/* CSS Penalty Bar Chart */
+.penalty-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px 0;
+}
+.penalty-bar-row {
+  display: grid;
+  grid-template-columns: 70px 130px 1fr 100px;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+  max-height: 60px;
+  overflow: hidden;
+}
+.penalty-bar-row.hidden {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+}
+.penalty-bar-date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey-400);
+  letter-spacing: 0.03em;
+}
+.penalty-bar-source {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+.proximity-tag {
+  font-weight: 400;
+  font-style: italic;
+  text-transform: none;
+  color: var(--grey-400);
+  margin-left: 4px;
+  font-size: 9px;
+}
+.penalty-bar-track {
+  height: 28px;
+  background: var(--grey-50, #f5f5f5);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.penalty-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s ease;
+  min-width: 3px;
+}
+.bar-finra { background: #CC0000; }
+.bar-cboe  { background: #C9A84C; }
+.bar-sec   { background: #888; }
+.penalty-bar-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+  color: var(--ink);
+}
+.penalty-bar-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 12px;
+  border-top: 2px solid var(--ink);
+  margin-top: 4px;
+}
+.penalty-bar-total-label {
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.penalty-bar-total-val {
+  font-family: var(--font-tabloid, var(--font-display));
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--red);
 }.penalty-chart-toggle {
   display: flex;
   gap: 6px;
@@ -1370,8 +1479,16 @@
 }
 
 @media (max-width: 600px) {.penalty-chart-wrap {
-  height: 260px;
-}.penalty-chart-panel {
+  min-height: 160px;
+}.penalty-bar-row {
+  grid-template-columns: 1fr 80px;
+  gap: 6px;
+}.penalty-bar-date,
+.penalty-bar-source {
+  grid-column: 1 / -1;
+}.penalty-bar-date { display: none; }
+.penalty-bar-total-val { font-size: 22px; }
+.penalty-chart-panel {
   padding: 20px 16px 16px;
 }
 }/* ============================================================
@@ -2467,12 +2584,48 @@
 .swatch-cboe      { background: #C9A84C; }
 .swatch-sec       { background: #888; }
 
+/* Agency logos — inline SVG */
+.agency-logo {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2px;
+  flex-shrink: 0;
+}
+.agency-finra { color: #CC0000; }
+.agency-sec   { color: #555; }
+.agency-nasdaq { color: #0B6CDA; }
+.agency-cboe  { color: #C9A84C; }
+
+/* Context-specific logo sizing */
+.stamp .agency-logo { width: 14px; height: 14px; margin-right: 3px; vertical-align: -1px; }
+.tl-fine-label .agency-logo { width: 14px; height: 14px; margin-right: 3px; vertical-align: -2px; }
+.source-card-head .agency-logo { width: 20px; height: 20px; margin-right: 4px; }
+
 /* Return-comparison bar widths */
 .return-bar-w43   { width: 43%; }
 .return-bar-w100  { width: 100%; }
 
 /* Return-bar spacing */
 .return-bar-label-gap { margin-top: 8px; }
+
+/* Performance chart image */
+.perf-chart-wrap {
+  margin-top: 20px;
+  border: 1px solid var(--grey-100);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.perf-chart-img { width: 100%; height: auto; display: block; }
+.perf-chart-caption {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey-400);
+  padding: 8px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 
 /* Screen-reader only (visually hidden, accessible to AT) */
 .sr-only {
