@@ -335,26 +335,42 @@
 .hero {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 56px var(--container-pad) 32px;
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  grid-template-rows: auto auto;
-  gap: 40px 48px;
+  padding: 0 0 32px;
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
-/* hero-main (text) in left column, hero-sidebar (photo) in right column rows 1–2 */
-.hero-main { grid-column: 1; grid-row: 1; }
-.hero-sidebar { grid-column: 2; grid-row: 1 / 3; }
-/* numbers bar spans full width below text+photo */
+/* Full-width hero photo */
+.hero-photo-full {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--grey-900);
+}
+.hero-photo-full .photo-area {
+  height: auto;
+  max-height: 560px;
+}
+.hero-photo-full .subject-photo {
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+.hero-main {
+  padding: 40px var(--container-pad) 0;
+  max-width: 780px;
+}
 .hero-numbers-bar {
-  grid-column: 1 / -1;
-  grid-row: 2;
   border-top: var(--border-section);
   border-bottom: 1px solid var(--grey-100);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   background: var(--white);
   margin: 0 0 8px;
+  padding: 0 var(--container-pad);
 }
 .hero-numbers-bar .stat-row {
   flex-direction: column;
@@ -376,10 +392,8 @@
 }
 /* context bar spans full width below numbers */
 .hero-context-bar {
-  grid-column: 1 / -1;
-  grid-row: 3;
   border-top: 1px solid var(--grey-100);
-  padding: 16px 0 40px;
+  padding: 16px var(--container-pad) 40px;
   margin-top: 0;
   font-family: var(--font-mono);
   font-size: 11px;
@@ -511,11 +525,6 @@ a.stamp.stamp-public:hover {
   margin-top: 10px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-}/* ── HERO SIDEBAR ──────────────────────────────────────────── */
-.hero-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }/* ── PHOTO CARD ────────────────────────────────────────────── */
 .photo-card {
   background: var(--grey-900);
@@ -1113,9 +1122,6 @@ a.stamp.stamp-public:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2px;
-}/* Bleich (first card) spans full width */
-.players-grid .player-card:first-child {
-  grid-column: 1 / -1;
 }
 .player-card {
   background: var(--grey-800);
@@ -1897,9 +1903,6 @@ a.stamp.stamp-public:hover {
    ============================================================ */
 @media (max-width: 1199px) {:root {
   --container-pad: 20px;
-}.hero {
-  grid-template-columns: 1fr 320px;
-  gap: 36px;
 }.nav-link {
   padding: 8px 10px;
 }.redflag-grid {
@@ -1927,16 +1930,8 @@ a.stamp.stamp-public:hover {
 .number-callout { margin-bottom: 36px; }
 .context-break { padding: 40px var(--container-pad) 40px calc(var(--container-pad) + 20px); }
 .pullquote { padding: 16px 20px; margin-top: 28px; }
-.hero {
-  grid-template-columns: 1fr;
-  gap: 32px;
-  padding: 36px var(--container-pad) 48px;
-}.hero-sidebar {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}.photo-card {
-  grid-column: 1 / -1;
+.hero-photo-full .subject-photo {
+  max-height: 400px;
 }.tl-col-headers {
   grid-template-columns: 100px 1fr 130px;
 }.tl-row {
@@ -1963,10 +1958,8 @@ a.stamp.stamp-public:hover {
   display: none;
 }.pub-title {
   font-size: clamp(22px, 7vw, 32px);
-}.hero {
-  padding: 28px var(--container-pad) 40px;
-}.hero-sidebar {
-  grid-template-columns: 1fr;
+}.hero-photo-full .subject-photo {
+  max-height: 320px;
 }.hero-context-bar {
   flex-direction: column;
   gap: 8px;
