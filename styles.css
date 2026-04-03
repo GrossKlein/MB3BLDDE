@@ -1167,7 +1167,34 @@ a.stamp.stamp-public:hover {
   line-height: 1.2;
   margin-bottom: 4px;
   letter-spacing: -0.3px;
-}.player-role {
+}
+/* Linked player name */
+.player-name-link {
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.player-name-link:hover {
+  color: var(--red);
+}
+.player-name-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+/* Linked player photo area */
+.player-photo-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.player-photo-link:hover {
+  filter: brightness(1.1);
+}
+.player-photo-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+.player-role {
   font-family: var(--font-label);
   font-size: 10px;
   font-weight: 700;
