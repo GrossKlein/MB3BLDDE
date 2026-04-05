@@ -1162,6 +1162,8 @@ a.stamp.stamp-public:hover {
   flex-direction: column;
   gap: 10px;
   flex: 1;
+  min-width: 0;        /* prevent grid blowout — child must be able to shrink */
+  overflow: hidden;
 }.player-name {
   font-family: var(--font-display);
   font-weight: 900;
@@ -1206,6 +1208,8 @@ a.stamp.stamp-public:hover {
   text-transform: uppercase;
   line-height: 1.4;
   margin-bottom: 14px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }.player-moderate .player-role {
   color: var(--grey-500);
 }.player-unrated  .player-role {
