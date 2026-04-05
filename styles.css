@@ -605,9 +605,49 @@ a.stamp.stamp-public:hover {
   text-align: right;
 }.stat-value.gold {
   color: var(--grey-500);
-}.stat-value.white {
-  color: var(--white);
-  font-size: 16px;
+}/* Performance comparison stat */
+.stat-row-compare {
+  grid-column: span 1;
+}.stat-compare-pair {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 2px 0 0;
+}.stat-compare-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}.stat-value-lag {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--red);
+  line-height: 1;
+}.stat-value-bench {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--grey-500);
+  line-height: 1;
+}.stat-compare-vs {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--grey-500);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  align-self: center;
+  padding: 0 2px;
+}.stat-compare-leg {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--grey-500);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1;
+}.stat-badge-underperform {
+  color: var(--red) !important;
+  font-weight: 600;
 }.stat-badge {
   display: block;
   font-family: var(--font-mono);
