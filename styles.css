@@ -1772,10 +1772,26 @@ a.stamp.stamp-public:hover {
   display: block;
   object-fit: cover;
   object-position: center top;
-  filter: grayscale(40%) contrast(1.1);
-  transition: filter 0.3s ease;
-}.player-photo-img:hover .player-photo-real {
-  filter: grayscale(10%) contrast(1.05);
+  filter: grayscale(100%) contrast(1.15) brightness(0.9);
+  transition: filter 0.4s ease;
+}
+/* Duotone red overlay — sits above the greyscale photo */
+.player-photo-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(180, 20, 20, 0.28);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+/* On hover: lift the red tint and restore some colour */
+.player-photo-img:hover .player-photo-real {
+  filter: grayscale(20%) contrast(1.08) brightness(1.0);
+}
+.player-photo-img:hover::after {
+  opacity: 0;
 }/* ============================================================
    ACCESSIBILITY: Skip link + focus-visible
    ============================================================ */
