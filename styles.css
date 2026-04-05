@@ -1091,10 +1091,16 @@ a.stamp.stamp-public:hover {
   overflow: hidden;
   flex-shrink: 0;
   min-height: 160px;
-}/* Cards with real photo: height from image */
+}/* Cards with real photo: square aspect ratio */
 .player-photo.player-photo-img {
   display: block;
   min-height: 0;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+/* Initials-only cards: also square */
+.player-photo:not(.player-photo-img) {
+  aspect-ratio: 1 / 1;
 }
 .player-photo::before {
   content: '';
@@ -1762,8 +1768,10 @@ a.stamp.stamp-public:hover {
   filter: grayscale(0%) contrast(1.05);
 }.player-photo-real {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
+  object-position: center top;
   filter: grayscale(40%) contrast(1.1);
   transition: filter 0.3s ease;
 }.player-photo-img:hover .player-photo-real {
