@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Barlow+Condensed:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -69,9 +69,9 @@
       </div>
     </div>
     <nav class="nav" role="navigation" aria-label="Main navigation">
-      <a href="index.html#players"   class="nav-link">Subjects</a>
-      <a href="index.html#timeline"  class="nav-link">Timeline</a>
       <a href="index.html#red-flags" class="nav-link">Red Flags</a>
+      <a href="index.html#timeline"  class="nav-link">Timeline</a>
+      <a href="index.html#players"   class="nav-link">Subjects</a>
       <a href="index.html#money"     class="nav-link">Money Trail</a>
       <a href="sources.html"         class="nav-link active-page">Sources ↗</a>
     </nav>
@@ -80,9 +80,9 @@
     </button>
   </div>
   <nav class="nav-drawer" id="navDrawer" role="navigation" aria-label="Mobile navigation">
-    <a href="index.html#players"   class="nav-link">Subjects</a>
-    <a href="index.html#timeline"  class="nav-link">Timeline</a>
     <a href="index.html#red-flags" class="nav-link">Red Flags</a>
+    <a href="index.html#timeline"  class="nav-link">Timeline</a>
+    <a href="index.html#players"   class="nav-link">Subjects</a>
     <a href="index.html#money"     class="nav-link">Money Trail</a>
     <a href="sources.html"         class="nav-link active-page">Sources ↗</a>
   </nav>
@@ -166,7 +166,7 @@
   <div class="sources-grid" id="sourcesGrid">
 
     <!-- SOURCE 1 -->
-    <div class="source-card" data-type="corporate" data-num="1">
+    <div class="source-card" data-type="corporate" data-num="1" id="source-1">
       <div class="source-num-bg">1</div>
       <div class="source-card-head">
         <span class="source-num">01</span>
@@ -187,7 +187,7 @@
     </div>
 
     <!-- SOURCE 2 -->
-    <div class="source-card" data-type="regulatory" data-num="2">
+    <div class="source-card" data-type="regulatory" data-num="2" id="source-2">
       <div class="source-num-bg">2</div>
       <div class="source-card-head">
         <span class="source-num">02</span>
@@ -205,11 +205,12 @@
       <div class="source-card-foot">
         <span class="source-url">brokercheck.finra.org/firm/summary/151990</span>
         <a href="https://brokercheck.finra.org/firm/summary/151990" class="source-btn" target="_blank" rel="noopener">Open Source ↗ <span class="sr-only">(opens in new tab)</span></a>
+        <a href="evidence/S02_FINRA_BrokerCheck_Scout_Trading.pdf" class="source-btn source-btn-archive" download>Archive ↓</a>
       </div>
     </div>
 
     <!-- SOURCE 3 -->
-    <div class="source-card" data-type="regulatory" data-num="3">
+    <div class="source-card" data-type="regulatory" data-num="3" id="source-3">
       <div class="source-num-bg">3</div>
       <div class="source-card-head">
         <span class="source-num">03</span>
@@ -227,11 +228,12 @@
       <div class="source-card-foot">
         <span class="source-url">nasdaqtrader.com/…/SCOU_NQ_2015.pdf</span>
         <a href="https://www.nasdaqtrader.com/content/marketregulation/NASDAQ/DisciplinaryActions/SCOU_NQ_2015.pdf" class="source-btn" target="_blank" rel="noopener">Open Source ↗ <span class="sr-only">(opens in new tab)</span></a>
+        <a href="evidence/S03_NASDAQ_Scout_Trading_SCOU_NQ_2015.pdf" class="source-btn source-btn-archive" download>Archive ↓</a>
       </div>
     </div>
 
     <!-- SOURCE 4 -->
-    <div class="source-card" data-type="regulatory" data-num="4">
+    <div class="source-card" data-type="regulatory" data-num="4" id="source-4">
       <div class="source-num-bg">4</div>
       <div class="source-card-head">
         <span class="source-num">04</span>
@@ -249,11 +251,12 @@
       <div class="source-card-foot">
         <span class="source-url">finra.org/media-center/news-releases/2016</span>
         <a href="https://www.finra.org/media-center/news-releases/2016" class="source-btn" target="_blank" rel="noopener">Open Source ↗ <span class="sr-only">(opens in new tab)</span></a>
+        <a href="evidence/S04_FINRA_Dec2016_Disciplinary_Actions.pdf" class="source-btn source-btn-archive" download>Archive ↓</a>
       </div>
     </div>
 
     <!-- SOURCE 5 -->
-    <div class="source-card" data-type="press" data-num="5">
+    <div class="source-card" data-type="press" data-num="5" id="source-5">
       <div class="source-num-bg">5</div>
       <div class="source-card-head">
         <span class="source-num">05</span>
@@ -270,11 +273,12 @@
       <div class="source-card-foot">
         <span class="source-url">sec.gov/newsroom/press-releases/2015-2</span>
         <a href="https://www.sec.gov/newsroom/press-releases/2015-2" class="source-btn" target="_blank" rel="noopener">Open Source ↗ <span class="sr-only">(opens in new tab)</span></a>
+        <a href="evidence/S05_CBOE_BATS_DirectEdge_Merge.pdf" class="source-btn source-btn-archive" download>Archive ↓</a>
       </div>
     </div>
 
     <!-- SOURCE 6 -->
-    <div class="source-card" data-type="financial" data-num="6">
+    <div class="source-card" data-type="financial" data-num="6" id="source-6">
       <div class="source-num-bg">6</div>
       <div class="source-card-head">
         <span class="source-num">06</span>
@@ -292,11 +296,12 @@
       <div class="source-card-foot">
         <span class="source-url">reports.adviserinfo.sec.gov/…/313946.pdf</span>
         <a href="https://reports.adviserinfo.sec.gov/reports/ADV/313946/PDF/313946.pdf" class="source-btn" target="_blank" rel="noopener">Open Source ↗ <span class="sr-only">(opens in new tab)</span></a>
+        <a href="evidence/S06_EntryPoint_Capital_FormADV_313946.pdf" class="source-btn source-btn-archive" download>Archive ↓</a>
       </div>
     </div>
 
     <!-- SOURCE 7 -->
-    <div class="source-card" data-type="court" data-num="7">
+    <div class="source-card" data-type="court" data-num="7" id="source-7">
       <div class="source-num-bg">7</div>
       <div class="source-card-head">
         <span class="source-num">07</span>
@@ -313,11 +318,12 @@
       <div class="source-card-foot">
         <span class="source-url">law.justia.com/…/2025-ny-slip-op-30182-u</span>
         <a href="https://law.justia.com/cases/new-york/other-courts/2025/2025-ny-slip-op-30182-u.html" class="source-btn" target="_blank" rel="noopener">Open Source ↗ <span class="sr-only">(opens in new tab)</span></a>
+        <a href="evidence/S07_Justia_NY_SlipOp_30182.html" class="source-btn source-btn-archive" download>Archive ↓</a>
       </div>
     </div>
 
     <!-- SOURCE 8 -->
-    <div class="source-card" data-type="court" data-num="8">
+    <div class="source-card" data-type="court" data-num="8" id="source-8">
       <div class="source-num-bg">8</div>
       <div class="source-card-head">
         <span class="source-num">08</span>
@@ -338,7 +344,7 @@
     </div>
 
     <!-- SOURCE 9 -->
-    <div class="source-card" data-type="court" data-num="9">
+    <div class="source-card" data-type="court" data-num="9" id="source-9">
       <div class="source-num-bg">9</div>
       <div class="source-card-head">
         <span class="source-num">09</span>
@@ -359,7 +365,7 @@
     </div>
 
     <!-- SOURCE 10 -->
-    <div class="source-card" data-type="corporate" data-num="10">
+    <div class="source-card" data-type="corporate" data-num="10" id="source-10">
       <div class="source-num-bg">10</div>
       <div class="source-card-head">
         <span class="source-num">10</span>
@@ -380,7 +386,7 @@
     </div>
 
     <!-- SOURCE 11 -->
-    <div class="source-card" data-type="regulatory" data-num="11">
+    <div class="source-card" data-type="regulatory" data-num="11" id="source-11">
       <div class="source-num-bg">11</div>
       <div class="source-card-head">
         <span class="source-num">11</span>

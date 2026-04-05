@@ -2481,6 +2481,14 @@ a.stamp.stamp-public:hover {
   background: var(--ink);
   color: var(--white);
   border-color: var(--ink);
+}.source-btn-archive {
+  color: var(--grey-500) !important;
+  border-color: var(--grey-200) !important;
+  font-size: 9px;
+}.source-btn-archive:hover {
+  background: var(--grey-800) !important;
+  color: var(--white) !important;
+  border-color: var(--grey-800) !important;
 }/* Hidden state for filter */
 .source-card.hidden {
   display: none;
