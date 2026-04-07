@@ -1092,6 +1092,17 @@ a.stamp.stamp-public:hover {
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
+/* Inline variant — sits inside hero column, no full-bleed padding */
+.context-break-inline {
+  padding: 28px 0 28px 20px;
+  margin-top: 32px;
+  border-top: none;
+  border-bottom: none;
+}
+.context-break-inline .context-break-inner {
+  max-width: 100%;
+}
+
 /* ============================================================
    KEY PLAYERS SECTION
    ============================================================ */
@@ -2571,9 +2582,10 @@ a.stamp.stamp-public:hover {
   overflow: hidden;
 }
 .subject-break-img {
-  width: 100%;
+  width: 66%;
   height: auto;
   display: block;
+  margin: 0 auto;
   filter: grayscale(25%) contrast(1.08);
   transition: filter 0.3s ease;
 }
