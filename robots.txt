@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://grossklein.github.io/MB3BLDDE/sitemap.xml
+Sitemap: https://michael-bleich.com/sitemap.xml
