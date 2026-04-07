@@ -769,7 +769,7 @@ a.stamp.stamp-public:hover {
 /* ── CARDS GRID ────────────────────────────────────────────── */
 .redflag-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--card-gap);
   align-items: start;
 }/* ── CARD BASE ─────────────────────────────────────────────── */
@@ -832,6 +832,10 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 8px;
   color: var(--grey-400);
+  text-decoration: none;
+}a.rf-source:hover {
+  color: var(--red);
+  text-decoration: underline;
 }/* ── CARD TITLE ────────────────────────────────────────────── */
 .rf-title {
   font-family: var(--font-display);
@@ -918,7 +922,7 @@ a.stamp.stamp-public:hover {
   margin-bottom: 0;
 }.tl-col-headers > div {
   font-family: var(--font-display);
-  font-size: 9px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -2608,8 +2612,8 @@ a.stamp.stamp-public:hover {
 
 /* Timeline fine-amount size variants */
 .tl-fine-amt-lg   { font-size: 28px; }
-.tl-fine-amt-md   { font-size: 20px; }
-.tl-fine-amt-sm   { font-size: 14px; }
+.tl-fine-amt-md   { font-size: 28px; color: var(--red); }
+.tl-fine-amt-sm   { font-size: 28px; color: var(--red); }
 
 /* Inline text accent (red highlight) */
 .text-red         { color: var(--red); }
