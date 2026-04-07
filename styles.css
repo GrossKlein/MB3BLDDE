@@ -53,6 +53,9 @@
   font-size: 14px;
   line-height: 1.7;
   color: var(--ink);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 /* Newsprint grain removed — BILD is clean white *//* ============================================================
    MASTHEAD (Phase 5-A · Approved)
@@ -78,11 +81,11 @@
   align-items: center;
   justify-content: flex-start;
   gap: 32px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }.pub-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: clamp(38px, 6vw, 76px);
   letter-spacing: -0.02em;
   line-height: 1;
   color: var(--white);
@@ -114,7 +117,6 @@
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--grey-400-inv);
-  letter-spacing: 1px;
   line-height: 1;
 }.nav {
   display: flex;
@@ -124,7 +126,6 @@
   font-family: var(--font-display);
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 1px;
   text-transform: none;
   color: var(--grey-400-inv);
   text-decoration: none;
@@ -248,7 +249,7 @@
   font-family: var(--font-display);
   font-size: 9px;
   font-weight: 900;
-  letter-spacing: 3px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 3px 12px;
   margin-right: 20px;
@@ -294,7 +295,6 @@
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.2px;
   color: var(--white);
   padding: 0 56px 0 0;
 }.ticker-item::before {
@@ -331,12 +331,9 @@
   flex-direction: column;
   position: relative;
 }
-/* Full-width hero photo */
+/* Full-width hero photo — HIDDEN */
 .hero-photo-full {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  background: var(--grey-900);
+  display: none;
 }
 .hero-photo-full .photo-area {
   height: auto;
@@ -353,6 +350,8 @@
 .hero-main {
   padding: 80px var(--container-pad) 0;
   max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .hero-numbers-bar {
   border-top: var(--border-section);
@@ -396,6 +395,7 @@
   border-bottom: 3px double var(--grey-200);
 }/* ── HERO LABEL ────────────────────────────────────────────── */
 .hero-label {
+  justify-content: center;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -408,8 +408,8 @@
 }.hero-label-text {
   font-family: var(--font-body);
   font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 4px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--red);
 }/* ── HEADLINE ──────────────────────────────────────────────── */
@@ -422,6 +422,7 @@
   text-transform: uppercase;
   color: var(--ink);
   margin-bottom: 20px;
+  text-align: center;
 }.hero-headline em {
   font-style: normal;
   color: var(--ink);
@@ -433,17 +434,23 @@
   color: var(--grey-700);
   line-height: 1.3;
   margin-bottom: 24px;
-  padding-left: 16px;
-  border-left: 4px solid var(--grey-300, #bbb);
-  letter-spacing: 0.01em;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 640px;
+  text-align: center;
 }/* ── LEDE ──────────────────────────────────────────────────── */
 .hero-lede {
   font-family: var(--font-mono);
   font-size: 14px;
-  line-height: 1.9;
+  line-height: 1.65;
   color: var(--ink);
   margin-bottom: 64px;
   max-width: 640px;       /* cap line length to ~70 chars */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }.hero-lede p {
   margin-bottom: 20px;
 }.hero-lede p:last-child {
@@ -454,7 +461,7 @@
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 900;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 2px 7px;
   margin-left: 5px;
@@ -496,15 +503,16 @@ a.stamp.stamp-public:hover {
 /* ── PULLQUOTE ─────────────────────────────────────────────── */
 /* ── MEBr3 Photo Insert ─────────────────────────────────────── */
 .mebr3-figure {
-  margin: 40px 0 0;
+  margin: 40px auto 0;
   padding: 0;
   border: 0;
+  max-width: 640px;
 }
 .mebr3-headline {
   display: block;
   font-family: var(--font-display);
   font-size: clamp(13px, 1.4vw, 16px);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--white);
@@ -527,10 +535,10 @@ a.stamp.stamp-public:hover {
   color: var(--ink);
   border-left: 5px solid var(--grey-200);
   padding: 20px 24px;
-  margin: 56px 0 0;
+  margin: 56px auto 0;
+  max-width: 640px;
   background: rgba(0,0,0,0.02);
   line-height: 1.3;
-  letter-spacing: 0.01em;
 }.pullquote cite {
   display: block;
   font-family: var(--font-mono);
@@ -539,7 +547,7 @@ a.stamp.stamp-public:hover {
   font-weight: 400;
   color: var(--grey-400);
   margin-top: 10px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }/* ── PHOTO CARD ────────────────────────────────────────────── */
 .photo-card {
@@ -583,7 +591,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 9px;
   color: rgba(255,255,255,0.25);
-  letter-spacing: 2px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   position: relative;
   z-index: 1;
@@ -594,7 +602,6 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--grey-400);
-  letter-spacing: 0.5px;
   line-height: 1.4;
   border-top: 1px solid var(--grey-700);
 }.photo-caption strong {
@@ -614,7 +621,7 @@ a.stamp.stamp-public:hover {
   font-size: 9px;
   color: var(--grey-400-inv);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.06em;
   line-height: 1.3;
   flex: 1;
 }.stat-value {
@@ -625,6 +632,7 @@ a.stamp.stamp-public:hover {
   line-height: 1;
   white-space: nowrap;
   text-align: right;
+  font-variant-numeric: tabular-nums lining-nums;
 }.stat-value.gold {
   color: var(--grey-500);
 }/* Performance comparison stat */
@@ -656,7 +664,7 @@ a.stamp.stamp-public:hover {
   font-size: 9px;
   font-weight: 600;
   color: var(--grey-500);
-  letter-spacing: 1px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   align-self: center;
   padding: 0 2px;
@@ -664,7 +672,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 8px;
   color: var(--grey-500);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1;
 }.stat-badge-underperform {
@@ -674,8 +682,8 @@ a.stamp.stamp-public:hover {
   display: block;
   font-family: var(--font-mono);
   font-size: 8px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--grey-400-inv);
   margin-top: 2px;
@@ -811,7 +819,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-display);
   font-size: 9px;
   font-weight: 900;
-  letter-spacing: 2px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 3px 8px;
 }.rf-stamp-severe {
@@ -824,7 +832,6 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 8px;
   color: var(--grey-400);
-  letter-spacing: 0.5px;
 }/* ── CARD TITLE ────────────────────────────────────────────── */
 .rf-title {
   font-family: var(--font-display);
@@ -849,8 +856,11 @@ a.stamp.stamp-public:hover {
 .rf-body {
   font-family: var(--font-mono);
   font-size: 12.5px;
-  line-height: 1.8;
+  line-height: 1.65;
   color: var(--grey-500);
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
   margin-bottom: 14px;
   position: relative;
   z-index: 1;
@@ -872,6 +882,7 @@ a.stamp.stamp-public:hover {
   position: relative;
   z-index: 1;
   font-size: 22px;
+  font-variant-numeric: tabular-nums lining-nums;
 }.rf-fine-dominant {
   font-size: 38px;
   letter-spacing: -1px;
@@ -909,7 +920,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-display);
   font-size: 9px;
   font-weight: 900;
-  letter-spacing: 3px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--grey-400);
   padding: 0 16px 8px;
@@ -965,7 +976,6 @@ a.stamp.stamp-public:hover {
   font-size: 11px;
   font-weight: 600;
   color: var(--grey-500);
-  letter-spacing: 0.5px;
   padding-right: 16px;
   line-height: 1.4;
 }.tl-dominant .tl-date {
@@ -977,8 +987,7 @@ a.stamp.stamp-public:hover {
 }.tl-event {
   font-family: var(--font-body);
   font-size: clamp(13px, 1.4vw, 15px);
-  font-weight: 800;
-  letter-spacing: 0.3px;
+  font-weight: 700;
   color: var(--ink);
   line-height: 1.3;
   margin-bottom: 4px;
@@ -989,7 +998,6 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--grey-400);
-  letter-spacing: 0.3px;
   line-height: 1.5;
   display: flex;
   align-items: center;
@@ -1013,7 +1021,8 @@ a.stamp.stamp-public:hover {
   font-weight: 900;
   color: var(--red);
   line-height: 1;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums lining-nums;
 }.tl-fine-gold {
   color: var(--grey-500);
 }.tl-fine-dominant-val {
@@ -1022,12 +1031,13 @@ a.stamp.stamp-public:hover {
   font-size: 48px;
   color: var(--red);
   line-height: 1;
-  letter-spacing: -2px;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums lining-nums;
 }.tl-fine-label {
   font-family: var(--font-mono);
   font-size: 8px;
   color: var(--grey-400);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }/* ── TOTAL ROW ─────────────────────────────────────────────── */
 .tl-total-row {
@@ -1040,8 +1050,8 @@ a.stamp.stamp-public:hover {
 }.tl-total-label {
   font-family: var(--font-display);
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--grey-500);
 }.tl-total-val {
@@ -1049,7 +1059,8 @@ a.stamp.stamp-public:hover {
   font-weight: 900;
   font-size: 32px;
   color: var(--red);
-  letter-spacing: -1px;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums lining-nums;
 }/* ============================================================
    INDUSTRY BASELINE CONTEXT PANEL
    Emotional recovery beat — restores dynamic range before Players
@@ -1081,6 +1092,9 @@ a.stamp.stamp-public:hover {
   line-height: 1.65;
   color: var(--ink);
   margin-bottom: 10px;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 .context-stat strong {
   font-weight: 600;
@@ -1092,10 +1106,11 @@ a.stamp.stamp-public:hover {
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-/* Inline variant — sits inside hero column, no full-bleed padding */
+/* Inline variant — sits inside hero column */
 .context-break-inline {
   padding: 28px 0 28px 20px;
-  margin-top: 32px;
+  margin: 32px auto 0;
+  max-width: 640px;
   border-top: none;
   border-bottom: none;
 }
@@ -1201,7 +1216,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 9px;
   color: rgba(255,255,255,0.3);
-  letter-spacing: 1px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   z-index: 2;
 }.player-photo-tag-alert {
@@ -1215,7 +1230,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-display);
   font-size: 9px;
   font-weight: 900;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 3px 9px;
   z-index: 3;
@@ -1277,7 +1292,7 @@ a.stamp.stamp-public:hover {
   font-size: 10px;
   font-weight: 700;
   color: var(--grey-500);
-  letter-spacing: 1px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1.4;
   margin-bottom: 14px;
@@ -1299,9 +1314,12 @@ a.stamp.stamp-public:hover {
 }.player-bio {
   font-family: var(--font-mono);
   font-size: 11px;
-  line-height: 1.75;
+  line-height: 1.6;
   color: var(--grey-400);
   margin-bottom: 20px;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }/* ── FLAG BOX ──────────────────────────────────────────────── */
 .player-flag {
   background: rgba(204,0,0,0.08);
@@ -1313,6 +1331,9 @@ a.stamp.stamp-public:hover {
   line-height: 1.7;
   color: var(--grey-300, #ccc);
   flex: 1;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }.player-flag strong {
   color: var(--white);
 }.player-flag em {
@@ -1326,7 +1347,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-display);
   font-size: 8px;
   font-weight: 900;
-  letter-spacing: 2px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--red);
   margin-bottom: 6px;
@@ -1338,7 +1359,6 @@ a.stamp.stamp-public:hover {
   font-size: 9px;
   color: var(--grey-400-inv);
   line-height: 1.6;
-  letter-spacing: 0.3px;
   border-top: 1px solid var(--grey-700);
   padding-top: 10px;
   margin-top: auto;
@@ -1360,8 +1380,7 @@ a.stamp.stamp-public:hover {
 }.penalty-chart-title {
   font-family: var(--font-body);
   font-size: clamp(13px, 1.4vw, 15px);
-  font-weight: 800;
-  letter-spacing: 0.3px;
+  font-weight: 700;
   color: var(--ink);
 }.penalty-chart-sub {
   font-family: var(--font-mono);
@@ -1468,7 +1487,7 @@ a.stamp.stamp-public:hover {
 .penalty-bar-total-label {
   font-family: var(--font-body);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -1485,7 +1504,6 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 1px;
   padding: 4px 12px;
   background: transparent;
   color: var(--grey-500);
@@ -1561,7 +1579,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-body);
   font-size: clamp(14px, 1.5vw, 17px);
   font-weight: 900;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink);
 }.money-panel-body {
@@ -1570,6 +1588,9 @@ a.stamp.stamp-public:hover {
   line-height: 1.8;
   color: var(--grey-500);
   margin-bottom: 14px;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }/* Risk panel — red tint */
 .panel-risk {
   background: var(--red-tint);
@@ -1605,7 +1626,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--grey-400);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1.3;
 }/* ── RETURN COMPARISON BAR ─────────────────────────────────── */
@@ -1641,7 +1662,6 @@ a.stamp.stamp-public:hover {
   font-size: 9px;
   color: var(--grey-400);
   margin-top: 12px;
-  letter-spacing: 0.3px;
 }/* ── CORPORATE STRUCTURE DIAGRAM ───────────────────────────── */
 .struct-diagram {
   margin-top: 20px;
@@ -1674,15 +1694,13 @@ a.stamp.stamp-public:hover {
 }.struct-label {
   font-family: var(--font-body);
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  font-weight: 700;
   color: var(--white);
   margin-bottom: 2px;
 }.struct-sub {
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--grey-400);
-  letter-spacing: 0.3px;
 }.struct-arrow {
   font-size: 16px;
   color: var(--red);
@@ -1723,15 +1741,13 @@ a.stamp.stamp-public:hover {
 }.leibowitz-name {
   font-family: var(--font-body);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--ink);
-  letter-spacing: 0.3px;
   margin-bottom: 3px;
 }.leibowitz-roles {
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--grey-500);
-  letter-spacing: 0.3px;
   line-height: 1.5;
 }.leibowitz-stake {
   font-family: var(--font-display);
@@ -1747,7 +1763,7 @@ a.stamp.stamp-public:hover {
   font-size: 8px;
   font-weight: 400;
   color: var(--grey-400);
-  letter-spacing: 1px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-top: 2px;
 }/* ── RISK BOXES ────────────────────────────────────────────── */
@@ -1779,7 +1795,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--grey-500);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1.3;
 }/* ============================================================
@@ -1810,7 +1826,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--grey-400);
 }.disclaimer-text {
@@ -1879,7 +1895,6 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 1px;
   padding: 8px 18px;
   text-decoration: none;
   border-radius: 0 0 4px 4px;
@@ -2033,7 +2048,7 @@ a.stamp.stamp-public:hover {
 .player-body { padding: 20px 18px 22px; }.pub-divider, .pub-meta {
   display: none;
 }.pub-title {
-  font-size: clamp(22px, 7vw, 32px);
+  font-size: clamp(28px, 8vw, 42px);
 }.hero-photo-full .subject-photo {
   max-height: 320px;
 }.hero-context-bar {
@@ -2115,7 +2130,7 @@ a.stamp.stamp-public:hover {
 }.pub-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(24px, 4vw, 46px);
+  font-size: clamp(32px, 5.5vw, 64px);
   letter-spacing: -1.5px;
   line-height: 1;
   color: var(--white);
@@ -2127,12 +2142,10 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--grey-400-inv);
-  letter-spacing: 1px;
 }.nav-link {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 1px;
   color: var(--grey-400-inv);
   text-decoration: none;
   padding: 8px 14px;
@@ -2183,8 +2196,8 @@ a.stamp.stamp-public:hover {
 }.vault-label-text {
   font-family: var(--font-body);
   font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 4px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--grey-500);
 }.vault-title {
@@ -2215,7 +2228,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 900;
-  letter-spacing: 3px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--grey-500);
   margin-bottom: 12px;
@@ -2264,7 +2277,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--grey-500);
-  letter-spacing: 1px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }/* ============================================================
    FILTER BAR
@@ -2291,7 +2304,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-body);
   font-size: 9px;
   font-weight: 900;
-  letter-spacing: 3px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--grey-400);
   padding: 14px 16px 14px 0;
@@ -2303,7 +2316,6 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1px;
   color: var(--grey-500);
   background: none;
   border: none;
@@ -2415,7 +2427,7 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-body);
   font-size: 8px;
   font-weight: 900;
-  letter-spacing: 2px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 3px 8px;
   white-space: nowrap;
@@ -2442,10 +2454,9 @@ a.stamp.stamp-public:hover {
 }.source-title {
   font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--ink);
   line-height: 1.3;
-  letter-spacing: 0.2px;
   margin-bottom: 8px;
 }.source-desc {
   font-family: var(--font-mono);
@@ -2457,7 +2468,6 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--grey-400);
-  letter-spacing: 0.3px;
   margin-bottom: 4px;
 }.source-ref strong {
   color: var(--grey-700);
@@ -2473,7 +2483,6 @@ a.stamp.stamp-public:hover {
   font-family: var(--font-mono);
   font-size: 9px;
   color: var(--grey-400);
-  letter-spacing: 0.3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2484,8 +2493,8 @@ a.stamp.stamp-public:hover {
   gap: 5px;
   font-family: var(--font-body);
   font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--red);
   text-decoration: none;
