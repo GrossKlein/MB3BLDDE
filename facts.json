@@ -1,0 +1,83 @@
+{
+  "page": "https://michael-bleich.com/index.html",
+  "version": "2026-04-30",
+  "lastUpdated": "2026-04-30T00:00:00Z",
+  "subject": {
+    "name": "Michael Edward Bleich",
+    "crd": "4262671",
+    "currentRole": "CIO & Indirect Owner, EntryPoint Capital LLC"
+  },
+  "facts": [
+    {
+      "id": "scout_trading_fine",
+      "claim": "Scout Trading LLC fined $3,000,000 by FINRA and NASDAQ",
+      "value": "$3,000,000",
+      "source": "https://www.nasdaqtrader.com/content/marketregulation/NASDAQ/DisciplinaryActions/SCOU_NQ_2015.pdf",
+      "docket": "20100243860",
+      "as_of": "2015-04-07",
+      "type": "regulatory_fine"
+    },
+    {
+      "id": "naked_short_shares",
+      "claim": "Total naked-shorted shares across 26-month operation",
+      "value": "295000000",
+      "unit": "shares",
+      "source": "https://www.nasdaqtrader.com/content/marketregulation/NASDAQ/DisciplinaryActions/SCOU_NQ_2015.pdf",
+      "as_of": "2015-04-07",
+      "type": "regulatory_finding"
+    },
+    {
+      "id": "faz_market_share",
+      "claim": "Scout Trading share of FAZ ETF failures to deliver at peak",
+      "value": "59%",
+      "unit": "percent_of_market",
+      "source": "https://www.nasdaqtrader.com/content/marketregulation/NASDAQ/DisciplinaryActions/SCOU_NQ_2015.pdf",
+      "as_of": "2015-04-07",
+      "type": "regulatory_finding"
+    },
+    {
+      "id": "total_penalties",
+      "claim": "Total documented penalties across all Bleich-controlled entities",
+      "value": "$17,313,368",
+      "source": "FINRA BrokerCheck CRD#151990 + CBOE enforcement + NASDAQ Docket 20100243860",
+      "as_of": "2026-04-30",
+      "type": "aggregated_regulatory"
+    },
+    {
+      "id": "entrypoint_aum",
+      "claim": "EntryPoint Capital LLC regulatory assets under management",
+      "value": "$578,038,743",
+      "source": "https://reports.adviserinfo.sec.gov/reports/ADV/313946/PDF/313946.pdf",
+      "as_of": "2025-03-01",
+      "type": "sec_filing"
+    },
+    {
+      "id": "entrypoint_3yr_return",
+      "claim": "EntryPoint Capital 3-year annualised return, top-50 unweighted 13F holdings",
+      "value": "4.73%",
+      "benchmark": "S&P 500 ~11%",
+      "underperformance": "-6.3pp",
+      "source": "13F public filing + Finviz/StockCharts",
+      "as_of": "2026-02-01",
+      "type": "performance_data"
+    },
+    {
+      "id": "giacovas_nj_phv",
+      "claim": "Robert A. Giacovas listed INELIGIBLE on NJ Lawyers Fund PHV list",
+      "value": "INELIGIBLE",
+      "nj_id": "PHV012046",
+      "source": "https://www.njlawfund.org",
+      "as_of": "2026-02-23",
+      "type": "regulatory_finding"
+    },
+    {
+      "id": "judell_ca_bar",
+      "claim": "Lynn Ellen Judell California Bar status",
+      "value": "SUSPENDED",
+      "ca_bar": "114924",
+      "source": "https://apps.calbar.ca.gov/attorney/Licensee/Detail/114924",
+      "as_of": "2026-02-01",
+      "type": "regulatory_finding"
+    }
+  ]
+}
